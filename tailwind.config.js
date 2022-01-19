@@ -1,0 +1,30 @@
+const colors = require("tailwindcss/colors");
+
+module.exports = {
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  theme: {
+    colors: {
+      ...colors,
+      //old primary 8CC152
+      // newer primary color 5ECD81
+      primary: "#00c67f",
+      dark: "#434A54",
+      gray: "#AAB2BD",
+      light: "#F5F7FA",
+      danger: "#E9573F",
+    },
+    extend: {
+      width: {
+        128: "32rem",
+      },
+      height: {
+        110: "28rem",
+        128: "32rem",
+      },
+      backgroundImage: {
+        med: "url('./assets/med.jpeg')",
+      },
+    },
+  },
+  plugins: [],
+};
