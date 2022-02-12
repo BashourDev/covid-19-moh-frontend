@@ -7,7 +7,8 @@ module.exports = {
       ...colors,
       //old primary 8CC152
       // newer primary color 5ECD81
-      primary: "#00c67f",
+      // newest primary for sure 00c67f
+      primary: "#2E9CCA",
       dark: "#434A54",
       gray: "#AAB2BD",
       light: "#F5F7FA",
@@ -22,7 +23,8 @@ module.exports = {
         128: "32rem",
       },
       backgroundImage: {
-        med: "url('./assets/med.jpeg')",
+        med: "opacity: 50, url('./assets/med.jpeg')",
+        doctor: "url('./assets/doctor.jpg')",
       },
     },
   },

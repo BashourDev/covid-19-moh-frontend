@@ -8,12 +8,13 @@ const AppInput = ({
   placeholder,
   Icon,
   className,
+  containerClassName,
 }) => {
   const { setFieldTouched, handleChange, errors, touched, values } =
     useFormikContext();
 
   return (
-    <>
+    <div className={`flex flex-col ${containerClassName}`}>
       <label
         htmlFor={id}
         className="text-dark text-lg focus:text-primary mt-5 mb-1 mx-1 focus-within:text-primary"
@@ -40,7 +41,7 @@ const AppInput = ({
       {touched[id] && errors[id] && (
         <p className="text-danger mt-1">{errors[id]}</p>
       )}
-    </>
+    </div>
   );
 };
 

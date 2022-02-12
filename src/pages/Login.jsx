@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import * as Yup from "yup";
 import { ReactComponent as CovidVaccine } from "../assets/covid-vaccine.svg";
 import AppSubmitButton from "../components/AppSubmitButton";
 import AppForm from "../components/AppForm";
 import AppInput from "../components/AppInput";
 import { AiOutlineUser, AiOutlineKey } from "react-icons/ai";
+import api from "../api/api";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { setUser } from "../api/user";
+import { setToken } from "../api/token";
+import UserContext from "../contexts/userContext";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required("اسم المستخدم مطلوب"),
@@ -12,17 +18,37 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = () => {
+  const userContext = useContext(UserContext);
+  const navigate = useNavigate();
   const initialValues = {
     username: "",
     password: "",
   };
 
-  const handleLogin = (values) => {
-    console.log(values);
+  const handleLogin = async (values) => {
+    try {
+      await api.get("sanctum/csrf-cookie");
+      const res = await api.post("/api/login", {
+        username: values.username,
+        password: values.password,
+      });
+
+      setUser(res.data.user);
+      setToken(res.data.token);
+      userContext.setUser(res.data);
+
+      navigate("/dashboard/statistics");
+    } catch (err) {
+      if (err?.response?.status === 401) {
+        toast.error("خطأ في اسم المستخدم او كلمة المرور!");
+      } else {
+        toast.error("حدث خطأ داخلي الرجاء إعادة المحاولة!");
+      }
+    }
   };
 
   return (
-    <div className="h-screen w-screen flex justify-center items-center bg-gradient-to-tl from-[#bbeed3] to-[#bbeed32a]">
+    <div className="h-screen w-screen flex justify-center items-center  bg-doctor bg-[#111311] bg-blend-overlay bg-no-repeat">
       <div className="w-3/6 h-2/3 bg-white shadow shadow-gray flex flex-col items-center">
         <h2 className="text-dark my-4 text-3xl">تسجيل الدخول</h2>
         <div className="grid grid-cols-2 px-7 2xl:px-14">

@@ -18,17 +18,17 @@ api.interceptors.request.use(
   }
 );
 
-api.interceptors.response.use(null, (error) => {
-  console.log(error);
-  if (error.response?.status >= 500) {
-    return toast.error("an unexpected error accured");
-  }
-  if (error.response?.status === 403) {
-    return toast.error("Unauthorized!");
-  }
-  if (error.response?.status === 401 || error.response?.status === 419) {
-    return toast.error("Unauthorized!");
-  }
-});
+// api.interceptors.response.use(null, (error) => {
+//   console.log(error);
+//   if (error.response?.status >= 500) {
+//     return toast.error("an unexpected error accured");
+//   }
+//   if (error.response?.status === 403) {
+//     return toast.error("Unauthorized!");
+//   }
+//   if (error.response?.status === 401 || error.response?.status === 419) {
+//     return toast.error("Unauthorized!");
+//   }
+// });
 
 export default api;
