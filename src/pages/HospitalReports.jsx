@@ -1,24 +1,20 @@
 import React from "react";
+import { MdAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { MdAdd, MdSearch } from "react-icons/md";
-import SearchInput from "../components/SearchInput";
 
-const Patients = () => {
+const HospitalReports = () => {
   return (
     <div className="w-full py-5">
       <div className="flex bg-white w-full px-32 xl:px-40 py-2 justify-between">
-        <div className="flex space-x-2">
-          <span className="flex items-center text-xl font-bold text-dark ml-7">
-            سجلات المرضى
-          </span>
-          <SearchInput placeholder={"بحث"} Icon={MdSearch} className={"mt-1"} />
-        </div>
+        <span className="flex items-center text-xl font-bold text-dark">
+          تقارير المشفى
+        </span>
         <Link
-          to={"add"}
+          to={"/dashboard/monitor-hospitals/add"}
           className="transition text-xl flex justify-center items-center px-3 py-2 border-4 rounded-full border-primary text-primary hover:text-white hover:bg-primary w-44"
         >
           <MdAdd />
-          إضافة مريض
+          إضافة تقرير
         </Link>
       </div>
       <div className="flex flex-col px-16">
@@ -38,25 +34,37 @@ const Patients = () => {
                       scope="col"
                       className="text-sm font-medium text-gray-900 px-6 py-4 text-right"
                     >
-                      الإسم
+                      الأسرة المتوفرة للقبول الإسعافي
                     </th>
                     <th
                       scope="col"
                       className="text-sm font-medium text-gray-900 px-6 py-4 text-right"
                     >
-                      الجنس
+                      الأسرة المشغولة في القبول الإسعافي
                     </th>
                     <th
                       scope="col"
                       className="text-sm font-medium text-gray-900 px-6 py-4 text-right"
                     >
-                      تاريخ الولادة
+                      الأسرة المتوفرة للعناية
                     </th>
                     <th
                       scope="col"
                       className="text-sm font-medium text-gray-900 px-6 py-4 text-right"
                     >
-                      رقم الهاتف المحمول
+                      الأسرة المشغولة في العناية
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-sm font-medium text-gray-900 px-6 py-4 text-right"
+                    >
+                      أجهزة التنفس الآلي المتوفرة
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-sm font-medium text-gray-900 px-6 py-4 text-right"
+                    >
+                      أجهزة التنفس الآلي المشغولة
                     </th>
                     <th
                       scope="col"
@@ -82,6 +90,12 @@ const Patients = () => {
                       @mdo
                     </td>
                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      @mdo
+                    </td>
+                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      @mdo
+                    </td>
+                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                       actions
                     </td>
                   </tr>
@@ -95,4 +109,4 @@ const Patients = () => {
   );
 };
 
-export default Patients;
+export default HospitalReports;

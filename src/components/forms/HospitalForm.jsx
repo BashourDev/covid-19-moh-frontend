@@ -22,7 +22,7 @@ const HospitalForm = () => {
           <AppInput
             id={"location"}
             placeholder={"العنوان"}
-            label={"العنوان"}
+            label={"العنوان:"}
             containerClassName="grow"
           />
 
@@ -51,7 +51,7 @@ const HospitalForm = () => {
           <AppInput
             id={"emergencyBeds"}
             placeholder={"عدد أسرة المشفى للقبول الإسعافي"}
-            label={"عدد أسرة المشفى للقبول الإسعافي"}
+            label={"عدد أسرة المشفى للقبول الإسعافي:"}
             type={"number"}
             containerClassName="grow"
           />

@@ -10,6 +10,8 @@ import PatientForm from "./components/forms/PatientForm";
 import Patients from "./pages/Patients";
 import Hospitals from "./pages/Hospitals";
 import HospitalForm from "./components/forms/HospitalForm";
+import HospitalReports from "./pages/HospitalReports";
+import HospitalReportForm from "./components/forms/HospitalReportForm";
 
 function App() {
   const [user, setUser] = useState(getUser());
@@ -31,23 +33,29 @@ function App() {
   }, [user]);
 
   return (
-    <UserContext.Provider value={{ user: user, setUser: setUser }}>
-      <ToastContainer className={"z-50"} autoClose={5000} />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />}>
-          <Route path="statistics" element={null} />
-          <Route path="hospitals">
-            <Route path="public" element={<Hospitals />} />
-            <Route path="private" element={<Hospitals />} />
-            <Route path="add" element={<HospitalForm />} />
+    <div className="overflow-y-hidden">
+      <UserContext.Provider value={{ user: user, setUser: setUser }}>
+        <ToastContainer className={"z-50"} autoClose={5000} />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />}>
+            <Route path="statistics" element={null} />
+            <Route path="hospitals">
+              <Route path="public" element={<Hospitals />} />
+              <Route path="private" element={<Hospitals />} />
+              <Route path="add" element={<HospitalForm />} />
+            </Route>
+            <Route path="monitor-hospitals" element={<HospitalReports />} />
+            <Route
+              path="monitor-hospitals/add"
+              element={<HospitalReportForm />}
+            />
+            <Route path="monitor-patients" element={<Patients />} />
+            <Route path="monitor-patients/add" element={<PatientForm />} />
           </Route>
-          <Route path="monitor-hospitals" element={null} />
-          <Route path="monitor-patients" element={<Patients />} />
-          <Route path="monitor-patients/add" element={<PatientForm />} />
-        </Route>
-      </Routes>
-    </UserContext.Provider>
+        </Routes>
+      </UserContext.Provider>
+    </div>
   );
 }
 

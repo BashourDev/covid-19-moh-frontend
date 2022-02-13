@@ -1,5 +1,4 @@
 import Axios from "axios";
-import { toast } from "react-toastify";
 import { getToken } from "./token";
 
 const api = Axios.create({

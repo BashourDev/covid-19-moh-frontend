@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdSearch } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
+import SearchInput from "../components/SearchInput";
 
 const Hospitals = () => {
   const [type, setType] = useState("");
@@ -17,9 +18,12 @@ const Hospitals = () => {
   return (
     <div className="w-full py-5">
       <div className="flex bg-white w-full px-32 xl:px-40 py-2 justify-between">
-        <span className="flex items-center text-xl font-bold text-dark">
-          المشافي {type}
-        </span>
+        <div className="flex space-x-2">
+          <span className="flex items-center text-xl font-bold text-dark ml-7">
+            المشافي {type}
+          </span>
+          <SearchInput placeholder={"بحث"} Icon={MdSearch} className={"mt-1"} />
+        </div>
         <Link
           to={"/dashboard/hospitals/add"}
           className="transition text-xl flex justify-center items-center px-3 py-2 border-4 rounded-full border-primary text-primary hover:text-white hover:bg-primary w-44"

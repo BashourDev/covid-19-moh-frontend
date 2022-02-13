@@ -2,7 +2,8 @@ import React from "react";
 import { useFormikContext } from "formik";
 
 const AppSubmitButton = ({ Icon, children, className }) => {
-  const { handleSubmit, errors, dirty } = useFormikContext();
+  const { handleSubmit } = useFormikContext();
+  // const { handleSubmit, errors, dirty } = useFormikContext();
 
   //   const handleClick = () => {
   //     if (!dirty || Object.keys(errors).length > 0) {

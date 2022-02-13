@@ -2,13 +2,12 @@ import React from "react";
 import * as Yup from "yup";
 import AppCheckBox from "../AppCheckBox";
 import AppForm from "../AppForm";
-import AppFormRadioButton from "../AppFormRadioButton";
 import AppInput from "../AppInput";
 import AppSubmitButton from "../AppSubmitButton";
 
 const FifthStepPatientForm = () => {
   return (
-    <div className="space-y-3 overflow-y-scroll pb-16">
+    <div className="space-y-3 overflow-y-scroll pb-32">
       <AppForm
         initialValues={{ gender: 0 }}
         validationSchema={Yup.object().shape({})}
