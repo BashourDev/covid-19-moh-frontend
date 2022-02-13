@@ -11,9 +11,9 @@ const Dashboard = () => {
   const [sideBarCollapsed, setSideBarCollapsed] = useState(false);
   return (
     <div dir="rtl" className="flex flex-col h-screen bg-light">
-      <div className="px-6 py-4 bg-primary shadow-md flex items-center gap-5">
-        <MdOutlineCoronavirus className="text-dark w-8 h-8" />
-        <h1 className="text-2xl text-dark font-semibold">
+      <div className="px-6 py-4 bg-sky-700 shadow-md flex items-center gap-5">
+        <MdOutlineCoronavirus className="text-light w-8 h-8" />
+        <h1 className="text-2xl text-light font-semibold">
           نظام إبلاغ المشافي عن مرضى كورونا
         </h1>
       </div>

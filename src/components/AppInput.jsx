@@ -9,6 +9,7 @@ const AppInput = ({
   Icon,
   className,
   containerClassName,
+  disabledValue,
 }) => {
   const { setFieldTouched, handleChange, errors, touched, values } =
     useFormikContext();
@@ -22,7 +23,7 @@ const AppInput = ({
         {label}
       </label>
       <div
-        className={`w-11/12 h-11 border-[1px] border-darkGray transition duration-150 rounded-lg flex items-center text-dark focus-within:border-primary ${className} ${
+        className={`w-11/12 h-11 border-[1px] border-lightGray transition duration-150 rounded-lg flex items-center text-dark focus-within:border-primary ${className} ${
           touched[id] && errors[id] && "border-danger"
         }`}
       >
@@ -36,6 +37,7 @@ const AppInput = ({
           onChange={handleChange(id)}
           onBlur={(e) => setFieldTouched(id)}
           className="border-0 outline-none px-2 w-full bg-inherit"
+          disabled={disabledValue ? values[disabledValue] === false : false}
         />
       </div>
       {touched[id] && errors[id] && (

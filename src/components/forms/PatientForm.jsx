@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import StepsButton from "../StepsButton";
 import StepSeparator from "../StepSeparator";
+import FifthStepPatientForm from "./FifthStepPatientForm";
 import FirstStepPatientForm from "./FirstStepPatientForm";
+import FourthStepPatientForm from "./FourthStepPatientForm";
+import SecondStepPatientForm from "./SecondStepPatientForm";
+import ThirdStepPatientForm from "./ThirdStepPatientForm";
 
 const PatientForm = () => {
   const [step, setStep] = useState(1);
@@ -46,7 +50,11 @@ const PatientForm = () => {
       </div>
 
       {/* form */}
-      <FirstStepPatientForm />
+      {step === 1 && <FirstStepPatientForm />}
+      {step === 2 && <SecondStepPatientForm />}
+      {step === 3 && <ThirdStepPatientForm />}
+      {step === 4 && <FourthStepPatientForm />}
+      {step === 5 && <FifthStepPatientForm />}
     </div>
   );
 };

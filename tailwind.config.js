@@ -10,7 +10,7 @@ module.exports = {
       // newest primary for sure 00c67f
       primary: "#2E9CCA",
       dark: "#434A54",
-      gray: "#AAB2BD",
+      lightGray: "#AAB2BD",
       light: "#F5F7FA",
       danger: "#E9573F",
     },

@@ -1,17 +1,18 @@
 import React from "react";
+import * as Yup from "yup";
 import AppForm from "../AppForm";
 import AppFormRadioButton from "../AppFormRadioButton";
 import AppInput from "../AppInput";
-import * as Yup from "yup";
+import AppSubmitButton from "../AppSubmitButton";
 
 const FirstStepPatientForm = () => {
   return (
     <div className="space-y-3">
       <AppForm
-        initialValues={{ gender: 0 }}
+        initialValues={{ gender: false }}
         validationSchema={Yup.object().shape({})}
       >
-        <div className="flex">
+        <div className="grid grid-cols-3">
           <AppInput
             id={"doctor"}
             placeholder={"اسم الطبيب"}
@@ -24,14 +25,7 @@ const FirstStepPatientForm = () => {
             label={"الاسم الثلاثي:"}
             containerClassName="grow"
           />
-          <AppInput
-            id={"brithday"}
-            placeholder={"تاريخ الولادة"}
-            label={"تاريخ الولادة:"}
-            containerClassName="grow"
-          />
-        </div>
-        <div className="flex">
+
           <div className="flex flex-col justify-start items-start mt-4 grow w-1/12">
             <span className="mx-2 text-dark my-2">الجنس:</span>
             <div
@@ -41,17 +35,25 @@ const FirstStepPatientForm = () => {
               <AppFormRadioButton
                 id={"male"}
                 name={"gender"}
-                value={(0).toString()}
+                value={"false"}
                 text={"ذكر"}
               />
               <AppFormRadioButton
                 id={"female"}
                 name={"gender"}
-                value={(1).toString()}
+                value={"true"}
                 text={"انثى"}
               />
             </div>
           </div>
+        </div>
+        <div className="grid grid-cols-3">
+          <AppInput
+            id={"brithday"}
+            placeholder={"تاريخ الولادة"}
+            label={"تاريخ الولادة:"}
+            containerClassName="grow"
+          />
           <AppInput
             id={"job"}
             placeholder={"العمل"}
@@ -65,7 +67,7 @@ const FirstStepPatientForm = () => {
             containerClassName="grow"
           />
         </div>
-        <div className="flex">
+        <div className="grid grid-cols-3">
           <AppInput
             id={"landline"}
             placeholder={"رقم الهاتف (المنزل)"}
@@ -78,14 +80,14 @@ const FirstStepPatientForm = () => {
             label={"رقم الهاتف (المحمول):"}
             containerClassName="grow"
           />
-        </div>
-        <div className="flex">
           <AppInput
             id={"bloodType"}
             placeholder={"الزمرة الدموية"}
             label={"الزمرة الدموية:"}
             containerClassName="grow"
           />
+        </div>
+        <div className="grid grid-cols-3">
           <AppInput
             id={"height"}
             placeholder={"الطول"}
@@ -98,6 +100,15 @@ const FirstStepPatientForm = () => {
             label={"الوزن:"}
             containerClassName="grow"
           />
+        </div>
+        <div className="grid grid-cols-3 gap-10">
+          <AppSubmitButton
+            className={"border-dark text-dark hover:bg-dark hover:text-white"}
+          >
+            إلغاء
+          </AppSubmitButton>
+          <AppSubmitButton>إضافة</AppSubmitButton>
+          <AppSubmitButton>إضافة و الذهاب للخطوة التالية</AppSubmitButton>
         </div>
       </AppForm>
     </div>

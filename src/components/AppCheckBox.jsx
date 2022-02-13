@@ -1,18 +1,20 @@
+import { useFormikContext } from "formik";
 import React from "react";
 
-const AppCheckBox = ({ value, onClick }) => {
+const AppCheckBox = ({ id, name, text, disabledValue, onClick }) => {
+  const { handleChange, values } = useFormikContext();
   return (
-    <label>
+    <label className="flex items-center mt-8">
       <input
-        onClick={onClick}
-        className="sr-only peer"
-        name="size"
+        id={id}
+        onClick={handleChange(name)}
+        className=""
+        name={name}
         type="checkbox"
-        value={value}
+        value={values[name]}
+        disabled={disabledValue ? values[disabledValue] === false : false}
       />
-      <div className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-700 peer-checked:font-semibold peer-checked:bg-slate-900 peer-checked:text-white">
-        {value}
-      </div>
+      <span className="px-2">{text}</span>
     </label>
   );
 };
