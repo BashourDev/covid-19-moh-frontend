@@ -2,7 +2,7 @@ import Axios from "axios";
 import { getToken } from "./token";
 
 const api = Axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: process.env.REACT_APP_API,
   headers: { "content-type": "application/json", Accept: "application/json" },
   withCredentials: true,
 });

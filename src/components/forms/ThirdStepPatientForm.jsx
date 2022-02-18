@@ -10,7 +10,7 @@ const ThirdStepPatientForm = () => {
   return (
     <div className="space-y-3">
       <AppForm
-        initialValues={{ gender: 0 }}
+        initialValues={{ gender: 0, pcrResult: true }}
         validationSchema={Yup.object().shape({})}
       >
         <div className="grid grid-cols-5">
@@ -44,13 +44,13 @@ const ThirdStepPatientForm = () => {
               <AppFormRadioButton
                 id={"positive"}
                 name={"pcrResult"}
-                value={true}
+                value={"true"}
                 text={"إيجابي"}
               />
               <AppFormRadioButton
                 id={"negative"}
                 name={"pcrResult"}
-                value={false}
+                value={"false"}
                 text={"سلبي"}
               />
             </div>
@@ -81,6 +81,7 @@ const ThirdStepPatientForm = () => {
             id={"daysOfFever"}
             placeholder={"عدد أيام الترفع الحروري"}
             label={"عدد أيام الترفع الحروري:"}
+            type={"number"}
             containerClassName="grow col-span-3"
           />
         </div>

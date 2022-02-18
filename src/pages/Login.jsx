@@ -33,9 +33,9 @@ const Login = () => {
         password: values.password,
       });
 
+      userContext.setUser(res.data.user);
       setUser(res.data.user);
       setToken(res.data.token);
-      userContext.setUser(res.data);
 
       navigate("/dashboard/statistics");
     } catch (err) {

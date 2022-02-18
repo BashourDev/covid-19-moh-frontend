@@ -442,12 +442,14 @@ const SecondStepPatientForm = () => {
             id={"contactedFamilyMembers"}
             placeholder={"عدد أفراد الأسرة المخالطين"}
             label={"عدد أفراد الأسرة المخالطين"}
+            type={"number"}
             containerClassName="grow"
           />
           <AppInput
             id={"familyMembersWithCovidSymptoms"}
             placeholder={"عدد أفراد الأسرة الذين لديهم أعراض تقترح ال covid 19"}
             label={"عدد أفراد الأسرة الذين لديهم أعراض تقترح ال covid 19:"}
+            type={"number"}
             containerClassName="grow"
           />
         </div>

@@ -13,6 +13,8 @@ module.exports = {
       lightGray: "#AAB2BD",
       light: "#F5F7FA",
       danger: "#E9573F",
+      success: "#28C71A",
+      info: "#E4E904",
     },
     extend: {
       width: {

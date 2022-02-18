@@ -14,7 +14,13 @@ import HospitalReports from "./pages/HospitalReports";
 import HospitalReportForm from "./components/forms/HospitalReportForm";
 
 function App() {
-  const [user, setUser] = useState(getUser());
+  const [user, setUser] = useState(() => {
+    if (!getUser()) {
+      return {};
+    }
+
+    return getUser();
+  });
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -28,14 +34,14 @@ function App() {
     } else if (user?.role === 1 && location.pathname === "/") {
       navigate("/dashboard/monitor-patients");
     } else if (user?.role === 2 && location.pathname === "/") {
-      navigate("/monitor-hospitals");
+      navigate("/dashboard/monitor-hospitals");
     }
   }, [user]);
 
   return (
     <div className="overflow-y-hidden">
       <UserContext.Provider value={{ user: user, setUser: setUser }}>
-        <ToastContainer className={"z-50"} autoClose={5000} />
+        <ToastContainer className={"z-50"} rtl autoClose={5000} />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />}>
@@ -44,6 +50,7 @@ function App() {
               <Route path="public" element={<Hospitals />} />
               <Route path="private" element={<Hospitals />} />
               <Route path="add" element={<HospitalForm />} />
+              <Route path="edit/:hid" element={<HospitalForm />} />
             </Route>
             <Route path="monitor-hospitals" element={<HospitalReports />} />
             <Route
