@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import api from "../../api/api";
+
 import StepsButton from "../StepsButton";
 import StepSeparator from "../StepSeparator";
 import FifthStepPatientForm from "./FifthStepPatientForm";
@@ -9,6 +12,144 @@ import ThirdStepPatientForm from "./ThirdStepPatientForm";
 
 const PatientForm = () => {
   const [step, setStep] = useState(1);
+  const location = useLocation();
+  const params = useParams();
+  const [patient, setPatient] = useState({
+    // first part
+    doctor: "",
+    name: "",
+    birthday: "",
+    gender: false,
+    job: "",
+    address: "",
+    landline: "",
+    mobileNumber: "",
+    bloodType: "",
+    height: "",
+    weight: "",
+
+    // second part
+    symptomDaysBeforeAdmission: "",
+    reasonOfAdmission: "",
+    hasFever: false,
+    temperature: "",
+    daysOfPreAdmissionFever: "",
+    responseToCetamol: false,
+    fatigue: false,
+    dryThroat: false,
+    sweating: false,
+    dehydration: false,
+    lossOfSmellAndTaste: false,
+    neuralSymptoms: "",
+    structuralSymptoms: "",
+    cardiacSymptoms: "",
+    digestiveSymptoms: "",
+    vascularSymptoms: "",
+    urinarySymptoms: "",
+    skinSymptoms: "",
+    ocularSymptoms: "",
+    chestListening: "",
+    oxygenationUponAdmission: "",
+    reproductiveActivity: false,
+    isPregnant: false,
+    ageOfFetus: "",
+    bloodGasUponAdmission: "",
+    arterialHypertension: false,
+    arterialHypertensionMedications: "",
+    diabetes: false,
+    diabetesOralTreatment: "",
+    diabetesInsulinTreatment: false,
+    diabetesInsulinType: "",
+    diabetesMixedOralAndInsulinTreatment: "",
+    highCholesterolAndTriglycerides: false,
+    cholesterolAndTriglycerides: "",
+    renalInsufficiency: false,
+    renalInsufficiencyTests: false,
+    hasAntecedentsOfCoronalMetaphorsOrExpansions: false,
+    antecedentsOfCoronalMetaphorsOrExpansionsMedications: "",
+    BreathingDifficultiesOrAsthma: false,
+    BreathingDifficultiesOrAsthmaTreatment: "",
+    otherRespiratoryProblems: "",
+    arthritis: false,
+    arthritisMedications: "",
+    osteoporosis: false,
+    osteoporosisMedications: "",
+    hasLiverDisease: false,
+    liverDisease: "",
+    hasDepressionOrAnxiety: false,
+    depressionOrAnxietyMedications: "",
+    otherDiseases: "",
+    otherMedications: "",
+    isSmoker: false,
+    smokingQuantityAndDuration: "",
+    smokingQuitter: false,
+    smokingQuitterQuantityAndDuration: "",
+    privateHookah: false,
+    publicHookah: false,
+    alcoholic: false,
+    hasDiet: "",
+    diet: "",
+    physicalSports: false,
+    physicalSportsType: "",
+    physicalSportsPace: "",
+    woreFaceMask: false,
+    handWashing: false,
+    avoidCrowds: false,
+    contactedFamilyMembers: "",
+    familyMembersWithCovidSymptoms: "",
+
+    // third part
+    treatmentCourse: "",
+    givenAntivirus: false,
+    givenAntivirusType: "",
+    ctReport: "",
+    tests: "",
+    pcrResult: false,
+    requiredVentilation: false,
+    ventilationDuration: "",
+    clinicalImprovement: false,
+    daysOfFever: "",
+    mixing: "",
+
+    //part four
+    death: false,
+    deathDateTime: "",
+    release: false,
+    releaseDateTime: "",
+    statusUponRelease: "",
+    bloodGasUponRelease: "",
+    bloodPressureUponRelease: "",
+    pulseUponRelease: "",
+    oxygenationUponRelease: "",
+    wbc: "",
+    crp: "",
+    residencyPeriod: "",
+
+    // fifth part
+    returnToWorkOrNormalLife: "",
+    dyspnea: false,
+    laborOnLightOrMediumEfforts: false,
+    otherDemonstrations: "",
+  });
+
+  const getPatient = async () => {
+    const res = await api.get(`/api/patients/${params.pid}`);
+    setPatient({ ...patient, ...res.data });
+    setStep(patient.step);
+  };
+
+  useEffect(() => {
+    if (params.pid) {
+      getPatient();
+    }
+  }, [location]);
+
+  useEffect(() => {
+    if (patient.step) {
+      setStep(patient.step);
+    }
+  }, [patient]);
+
   return (
     <div className="flex flex-col justify-start grow px-32 xl:px-40">
       {/* steps */}
@@ -50,11 +191,41 @@ const PatientForm = () => {
       </div>
 
       {/* form */}
-      {step === 1 && <FirstStepPatientForm />}
-      {step === 2 && <SecondStepPatientForm />}
-      {step === 3 && <ThirdStepPatientForm />}
-      {step === 4 && <FourthStepPatientForm />}
-      {step === 5 && <FifthStepPatientForm />}
+      {step === 1 && (
+        <FirstStepPatientForm
+          initialValues={patient}
+          setPatient={setPatient}
+          setStep={setStep}
+        />
+      )}
+      {step === 2 && (
+        <SecondStepPatientForm
+          initialValues={patient}
+          setPatient={setPatient}
+          setStep={setStep}
+        />
+      )}
+      {step === 3 && (
+        <ThirdStepPatientForm
+          initialValues={patient}
+          setPatient={setPatient}
+          setStep={setStep}
+        />
+      )}
+      {step === 4 && (
+        <FourthStepPatientForm
+          initialValues={patient}
+          setPatient={setPatient}
+          setStep={setStep}
+        />
+      )}
+      {step === 5 && (
+        <FifthStepPatientForm
+          initialValues={patient}
+          setPatient={setPatient}
+          setStep={setStep}
+        />
+      )}
     </div>
   );
 };

@@ -62,8 +62,8 @@ const Dashboard = () => {
               </MenuItem>
             </SubMenu>
             <MenuItem icon={<MdTrendingUp />}>
-              <NavLink to={"/dashboard/monitor-hospitals"}>
-                مراقبة المشافي
+              <NavLink to={"/dashboard/monitor-hospital"}>
+                مراقبة المشفى
               </NavLink>
             </MenuItem>
             <MenuItem icon={<FaUserInjured />}>

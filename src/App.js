@@ -52,13 +52,17 @@ function App() {
               <Route path="add" element={<HospitalForm />} />
               <Route path="edit/:hid" element={<HospitalForm />} />
             </Route>
-            <Route path="monitor-hospitals" element={<HospitalReports />} />
+            <Route path="monitor-hospital" element={<HospitalReports />} />
             <Route
-              path="monitor-hospitals/add"
+              path="monitor-hospital/add"
               element={<HospitalReportForm />}
             />
             <Route path="monitor-patients" element={<Patients />} />
             <Route path="monitor-patients/add" element={<PatientForm />} />
+            <Route
+              path="monitor-patients/complete/:pid"
+              element={<PatientForm />}
+            />
           </Route>
         </Routes>
       </UserContext.Provider>

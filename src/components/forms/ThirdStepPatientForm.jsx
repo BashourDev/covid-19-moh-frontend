@@ -1,17 +1,38 @@
 import React from "react";
+import { toast } from "react-toastify";
 import * as Yup from "yup";
+import api from "../../api/api";
 import AppCheckBox from "../AppCheckBox";
 import AppForm from "../AppForm";
 import AppFormRadioButton from "../AppFormRadioButton";
 import AppInput from "../AppInput";
 import AppSubmitButton from "../AppSubmitButton";
 
-const ThirdStepPatientForm = () => {
+const ThirdStepPatientForm = ({ initialValues, setPatient, setStep }) => {
+  const handleSubmit = async (values) => {
+    try {
+      const res = await api.put(
+        `/api/patients/third-step/${initialValues.id}`,
+        values
+      );
+      setPatient({ ...initialValues, ...res.data });
+      toast.success("تمت العملية بنجاح");
+      setStep(initialValues.step);
+    } catch (error) {
+      if (error?.response?.status === 403) {
+        toast.error("عذرا لا تملك صلاحية");
+      } else if (error?.response?.status >= 500) {
+        toast.error("عذرا حدث خطأ");
+      }
+    }
+  };
+
   return (
     <div className="space-y-3">
       <AppForm
-        initialValues={{ gender: 0, pcrResult: true }}
+        initialValues={initialValues}
         validationSchema={Yup.object().shape({})}
+        onSubmit={(values) => handleSubmit(values)}
       >
         <div className="grid grid-cols-5">
           <AppInput
@@ -44,13 +65,13 @@ const ThirdStepPatientForm = () => {
               <AppFormRadioButton
                 id={"positive"}
                 name={"pcrResult"}
-                value={"true"}
+                value={"1"}
                 text={"إيجابي"}
               />
               <AppFormRadioButton
                 id={"negative"}
                 name={"pcrResult"}
-                value={"false"}
+                value={"0"}
                 text={"سلبي"}
               />
             </div>

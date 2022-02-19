@@ -8,6 +8,8 @@ import AppFormRadioButton from "../AppFormRadioButton";
 import AppInput from "../AppInput";
 import AppSubmitButton from "../AppSubmitButton";
 import AppButton from "../AppButton";
+import AppCheckBox from "../AppCheckBox";
+import AppSecondCheckBox from "../AppHospitalCheckBox";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("الرجاء إدخال اسم المشفى"),
@@ -27,18 +29,24 @@ const validationSchema = Yup.object().shape({
   hospitalAnalystUsername: Yup.string().required(
     "الرجاء إدخال اسم المستخدم للمسؤول عم إحصائية المشفى"
   ),
-  hospitalAnalystPassword: Yup.string().required(
-    "الرجاء إدخال كلمة مرور المسؤول عم إحصائية المشفى"
-  ),
+  hospitalAnalystPassword: Yup.string().when("updateHAPassword", {
+    is: true,
+    then: Yup.string().required(
+      "الرجاء إدخال كلمة المرور للمسؤول عم إحصائية المشفى"
+    ),
+  }),
   patientAnalystName: Yup.string().required(
     "الرجاء إدخال اسم المسؤول عم إحصائية المرضى"
   ),
   patientAnalystUsername: Yup.string().required(
     "الرجاء إدخال اسم المستخدم للمسؤول عم إحصائية المرضى"
   ),
-  patientAnalystPassword: Yup.string().required(
-    "الرجاء إدخال كلمة مرور المسؤول عم إحصائية المرضى"
-  ),
+  patientAnalystPassword: Yup.string().when("updatePAPassword", {
+    is: true,
+    then: Yup.string().required(
+      "الرجاء إدخال كلمة المرور للمسؤول عم إحصائية المرضى"
+    ),
+  }),
 });
 
 const HospitalForm = () => {
@@ -73,13 +81,14 @@ const HospitalForm = () => {
         ventilators: +res.data.ventilators,
         hospitalAnalystName: res.data.hospital_analyst.name,
         hospitalAnalystUsername: res.data.hospital_analyst.username,
+        updateHAPassword: false,
         hospitalAnalystPassword: "",
         patientAnalystName: res.data.patient_analyst.name,
         patientAnalystUsername: res.data.patient_analyst.username,
+        updatePAPassword: false,
         patientAnalystPassword: "",
       });
     } catch (error) {
-      console.log(error);
       if (error?.response?.status === 403) {
         toast.error("عذرا لا تملك صلاحية");
         navigate(-1);
@@ -106,6 +115,8 @@ const HospitalForm = () => {
     } catch (error) {
       if (error?.response?.status === 403) {
         toast.error("عذرا لا تملك صلاحية");
+      } else if (error?.response?.status === 422) {
+        toast.error("عذرا أسماء موظفي المشافي يجب ان تكون فريدة");
       } else {
         toast.error("عذرا حدث خطأ");
       }
@@ -120,6 +131,8 @@ const HospitalForm = () => {
     } catch (error) {
       if (error?.response?.status === 403) {
         toast.error("عذرا لا تملك صلاحية");
+      } else if (error?.response?.status === 422) {
+        toast.error("عذرا أسماء موظفي المشافي يجب ان تكون فريدة");
       } else {
         toast.error("عذرا حدث خطأ");
       }
@@ -198,7 +211,7 @@ const HospitalForm = () => {
         <span className="text-lg font-medium">
           الموظف المسؤول عن إحصائية المشفى:
         </span>
-        <div className="grid grid-cols-3">
+        <div className={`grid ${isCreate ? "grid-cols-3" : "grid-cols-4"}`}>
           <AppInput
             id={"hospitalAnalystName"}
             placeholder={"الإسم"}
@@ -217,12 +230,19 @@ const HospitalForm = () => {
             label={"كلمة المرور:"}
             containerClassName="grow"
           />
+          {!isCreate && (
+            <AppSecondCheckBox
+              id={"updateHAPassword"}
+              name={"updateHAPassword"}
+              text={"تعديل كلمة المرور"}
+            />
+          )}
         </div>
 
         <span className="text-base font-medium">
           الموظف المسؤول عن إحصائية المرضى:
         </span>
-        <div className="grid grid-cols-3">
+        <div className={`grid ${isCreate ? "grid-cols-3" : "grid-cols-4"}`}>
           <AppInput
             id={"patientAnalystName"}
             placeholder={"الإسم"}
@@ -241,6 +261,13 @@ const HospitalForm = () => {
             label={"كلمة المرور:"}
             containerClassName="grow"
           />
+          {!isCreate && (
+            <AppSecondCheckBox
+              id={"updatePAPassword"}
+              name={"updatePAPassword"}
+              text={"تعديل كلمة المرور"}
+            />
+          )}
         </div>
 
         <div className="grid grid-cols-3 gap-10 justify-between">

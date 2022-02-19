@@ -40,7 +40,6 @@ const HospitalReports = () => {
       toast.success("تم الحذف بنجاح");
       getReports();
     } catch (error) {
-      console.log(error);
       toast.error("حدث خطأ");
     }
   };
@@ -52,7 +51,7 @@ const HospitalReports = () => {
           تقارير المشفى
         </span>
         <Link
-          to={"/dashboard/monitor-hospitals/add"}
+          to={"/dashboard/monitor-hospital/add"}
           className="transition text-xl flex justify-center items-center px-3 py-2 border-4 rounded-full border-primary text-primary hover:text-white hover:bg-primary w-44"
         >
           <MdAdd />
@@ -109,6 +108,12 @@ const HospitalReports = () => {
                         scope="col"
                         className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
                       >
+                        مضُاف من قِبَل
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                      >
                         آخر تحديث
                       </th>
                       <th
@@ -140,6 +145,9 @@ const HospitalReports = () => {
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                           {report.reservedVentilators}
+                        </td>
+                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                          {report.hospital_analyst.name}
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                           {moment(report.updated_at).calendar()}

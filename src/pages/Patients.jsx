@@ -5,6 +5,7 @@ import SearchInput from "../components/SearchInput";
 import api from "../api/api";
 import { toast } from "react-toastify";
 import { conf } from "../components/appConfirm";
+import moment from "../myMoment";
 
 const Patients = () => {
   const [patients, setPatients] = useState([]);
@@ -109,12 +110,27 @@ const Patients = () => {
                     <th
                       scope="col"
                       className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                    >
+                      مضُاف من قِبَل
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                    >
+                      آخر تحديث
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
                     ></th>
                   </tr>
                 </thead>
                 <tbody>
                   {patients.map((patient, i) => (
-                    <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                    <tr
+                      key={i}
+                      className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
+                    >
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         {patient.name}
                       </td>
@@ -128,8 +144,14 @@ const Patients = () => {
                         {patient.mobileNumber}
                       </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {patient.patient_analyst.name}
+                      </td>
+                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {moment(patient.updated_at).calendar()}
+                      </td>
+                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap flex">
                         <Link
-                          to={`/dashboard/patients/edit/${patient.id}`}
+                          to={`/dashboard/monitor-patients/complete/${patient.id}`}
                           className="mx-3"
                         >
                           <MdEdit className="text-info text-xl" />

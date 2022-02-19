@@ -7,6 +7,7 @@ import api from "../api/api";
 import { toast } from "react-toastify";
 import Loading from "../components/Loading";
 import { conf } from "../components/appConfirm";
+import moment from "../myMoment";
 
 const Hospitals = () => {
   const [hospitals, setHospitals] = useState([]);
@@ -143,6 +144,12 @@ const Hospitals = () => {
                       <th
                         scope="col"
                         className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                      >
+                        آخر تحديث
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
                       ></th>
                     </tr>
                   </thead>
@@ -175,6 +182,9 @@ const Hospitals = () => {
                             ? parseInt(hospital.ventilators) -
                               parseInt(hospital.reservedVentilators)
                             : hospital.ventilators}
+                        </td>
+                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                          {moment(hospital.updated_at).calendar()}
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap flex items-center">
                           <Link

@@ -1,16 +1,37 @@
 import React from "react";
+import { toast } from "react-toastify";
 import * as Yup from "yup";
+import api from "../../api/api";
 import AppCheckBox from "../AppCheckBox";
 import AppForm from "../AppForm";
 import AppInput from "../AppInput";
 import AppSubmitButton from "../AppSubmitButton";
 
-const FourthStepPatientForm = () => {
+const FourthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
+  const handleSubmit = async (values) => {
+    try {
+      const res = await api.put(
+        `/api/patients/fourth-step/${initialValues.id}`,
+        values
+      );
+      setPatient({ ...initialValues, ...res.data });
+      toast.success("تمت العملية بنجاح");
+      setStep(initialValues.step);
+    } catch (error) {
+      if (error?.response?.status === 403) {
+        toast.error("عذرا لا تملك صلاحية");
+      } else if (error?.response?.status >= 500) {
+        toast.error("عذرا حدث خطأ");
+      }
+    }
+  };
+
   return (
     <div className="space-y-3 overflow-y-scroll pb-32">
       <AppForm
-        initialValues={{ gender: 0 }}
+        initialValues={initialValues}
         validationSchema={Yup.object().shape({})}
+        onSubmit={(values) => handleSubmit(values)}
       >
         <div className="grid grid-cols-6">
           <AppCheckBox id={"death"} name={"death"} text={"وفاة"} />
@@ -18,6 +39,7 @@ const FourthStepPatientForm = () => {
             id={"deathDateTime"}
             placeholder={"تاريخ الوفاة"}
             label={"تاريخ الوفاة:"}
+            type={"date"}
             containerClassName="grow col-span-5"
             disabledValue={"death"}
           />
@@ -29,6 +51,7 @@ const FourthStepPatientForm = () => {
             id={"releaseDateTime"}
             placeholder={"تاريخ التخريج"}
             label={"تاريخ التخريج:"}
+            type={"date"}
             containerClassName="grow col-span-5"
             disabledValue={"release"}
           />

@@ -1,7 +1,7 @@
 import { useFormikContext } from "formik";
 import React from "react";
 
-const AppCheckBox = ({ id, name, text, disabledValue, onClick }) => {
+const AppSecondCheckBox = ({ id, name, text, disabledValue, onClick }) => {
   const { handleChange, values } = useFormikContext();
   return (
     <label className="flex items-center mt-8">
@@ -11,7 +11,7 @@ const AppCheckBox = ({ id, name, text, disabledValue, onClick }) => {
         className=""
         name={name}
         type="checkbox"
-        value={values[name] === null ? false : values[name][0]}
+        value={values[name] === null ? false : values[name]}
         disabled={disabledValue ? values[disabledValue] === false : false}
       />
       <span className="px-2">{text}</span>
@@ -19,4 +19,4 @@ const AppCheckBox = ({ id, name, text, disabledValue, onClick }) => {
   );
 };
 
-export default AppCheckBox;
+export default AppSecondCheckBox;

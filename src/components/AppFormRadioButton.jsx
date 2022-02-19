@@ -3,6 +3,13 @@ import React from "react";
 
 const AppFormRadioButton = ({ id, name, value, text, checked = false }) => {
   const { handleChange, values } = useFormikContext();
+
+  const isChecked = () => {
+    if (typeof value === "string") {
+      return value === `${values[name]}`;
+    }
+  };
+
   return (
     <>
       <label>
@@ -13,7 +20,7 @@ const AppFormRadioButton = ({ id, name, value, text, checked = false }) => {
           className="sr-only peer"
           value={value}
           onChange={handleChange(name)}
-          checked={value === values[name]}
+          checked={isChecked()}
         />
         <div className="transition duration-300 px-4 h-9 cursor-pointer rounded-full flex items-center justify-center text-dark peer-checked:bg-primary peer-checked:text-white">
           {text}

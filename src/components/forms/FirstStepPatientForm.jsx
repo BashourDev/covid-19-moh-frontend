@@ -1,16 +1,37 @@
 import React from "react";
+import { toast } from "react-toastify";
 import * as Yup from "yup";
+import api from "../../api/api";
 import AppForm from "../AppForm";
 import AppFormRadioButton from "../AppFormRadioButton";
 import AppInput from "../AppInput";
 import AppSubmitButton from "../AppSubmitButton";
 
-const FirstStepPatientForm = () => {
+const FirstStepPatientForm = ({ initialValues, setPatient, setStep }) => {
+  const handleSubmit = async (values) => {
+    try {
+      const res = await api.post("/api/patients/first-step", {
+        ...values,
+        // gender: values.gender === "true" ? true : false,
+      });
+      setPatient({ ...initialValues, ...res.data });
+      toast.success("تمت العملية بنجاح");
+      setStep(initialValues.step);
+    } catch (error) {
+      if (error?.response?.status === 403) {
+        toast.error("عذرا لا تملك صلاحية");
+      } else if (error?.response?.status >= 500) {
+        toast.error("عذرا حدث خطأ");
+      }
+    }
+  };
+
   return (
     <div className="space-y-3">
       <AppForm
-        initialValues={{ gender: false }}
+        initialValues={initialValues}
         validationSchema={Yup.object().shape({})}
+        onSubmit={(values) => handleSubmit(values)}
       >
         <div className="grid grid-cols-3">
           <AppInput
@@ -35,13 +56,13 @@ const FirstStepPatientForm = () => {
               <AppFormRadioButton
                 id={"male"}
                 name={"gender"}
-                value={"false"}
+                value={"0"}
                 text={"ذكر"}
               />
               <AppFormRadioButton
                 id={"female"}
                 name={"gender"}
-                value={"true"}
+                value={"1"}
                 text={"انثى"}
               />
             </div>
@@ -49,9 +70,10 @@ const FirstStepPatientForm = () => {
         </div>
         <div className="grid grid-cols-3">
           <AppInput
-            id={"brithday"}
+            id={"birthday"}
             placeholder={"تاريخ الولادة"}
             label={"تاريخ الولادة:"}
+            type="date"
             containerClassName="grow"
           />
           <AppInput

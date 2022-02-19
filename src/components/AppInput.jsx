@@ -14,6 +14,18 @@ const AppInput = ({
   const { setFieldTouched, handleChange, errors, touched, values } =
     useFormikContext();
 
+  const isDisabled = () => {
+    if (disabledValue) {
+      if (typeof values[disabledValue] === "boolean") {
+        return values[disabledValue] === false;
+      } else if (typeof values[disabledValue] === "number") {
+        return values[disabledValue] === 0;
+      }
+    } else {
+      return false;
+    }
+  };
+
   return (
     <div className={`flex flex-col ${containerClassName}`}>
       <label
@@ -32,12 +44,12 @@ const AppInput = ({
           id={id}
           name={id}
           type={type}
-          value={values[id]}
+          value={values[id] === null ? "" : values[id]}
           placeholder={placeholder}
           onChange={handleChange(id)}
           onBlur={(e) => setFieldTouched(id)}
           className="border-0 outline-none px-2 w-full bg-inherit"
-          disabled={disabledValue ? values[disabledValue] === false : false}
+          disabled={isDisabled()}
         />
       </div>
       {touched[id] && errors[id] && (
