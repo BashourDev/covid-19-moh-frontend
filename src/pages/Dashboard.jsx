@@ -8,6 +8,7 @@ import {
   MdSummarize,
 } from "react-icons/md";
 import { RiHospitalFill } from "react-icons/ri";
+import { BsChevronCompactLeft } from "react-icons/bs";
 import { FaUserInjured, FaRegChartBar } from "react-icons/fa";
 import { AiOutlineMenu } from "react-icons/ai";
 import AppButton from "../components/AppButton";
@@ -35,6 +36,14 @@ const Dashboard = () => {
           <h1 className="text-2xl text-light font-semibold">
             نظام إبلاغ المشافي عن مرضى كورونا
           </h1>
+          {userContext.user.role !== 0 && (
+            <>
+              <BsChevronCompactLeft className="text-light w-6 h-8" />
+              <span className="text-2xl text-light font-medium ">
+                {userContext?.user?.hospital?.name}
+              </span>
+            </>
+          )}
         </div>
         <div className="flex items-center">
           <AppButton

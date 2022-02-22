@@ -33,6 +33,10 @@ const Login = () => {
         password: values.password,
       });
 
+      console.log("====================================");
+      console.log(res);
+      console.log("====================================");
+
       userContext.setUser(res.data.user);
       setUser(res.data.user);
       setToken(res.data.token);
