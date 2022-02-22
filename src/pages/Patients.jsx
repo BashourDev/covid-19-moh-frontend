@@ -14,7 +14,9 @@ const Patients = () => {
 
   const getPatients = async (name = "") => {
     try {
-      const res = await api.get(`/api/patients/hospital-patients?name=${name}`);
+      const res = await api.get(
+        `/api/patients/hospital-patients?searchKey=${name}`
+      );
       setPatients(res.data);
     } catch (error) {
       toast.error("عذرا لا تملك صلاحية");
