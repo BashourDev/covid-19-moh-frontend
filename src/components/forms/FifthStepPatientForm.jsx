@@ -34,7 +34,7 @@ const FifthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
   }, [initialValues]);
 
   return (
-    <div className="space-y-3 overflow-y-scroll pb-32">
+    <div className="space-y-3 pb-32">
       <AppForm
         initialValues={initialValues}
         validationSchema={Yup.object().shape({})}
@@ -73,8 +73,12 @@ const FifthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
           >
             إلغاء
           </AppSubmitButton>
-          <AppSubmitButton>إضافة</AppSubmitButton>
-          <AppSubmitButton>إضافة و الذهاب للخطوة التالية</AppSubmitButton>
+          <AppSubmitButton disabled={initialValues.id === undefined}>
+            إضافة
+          </AppSubmitButton>
+          <AppSubmitButton disabled={initialValues.id === undefined}>
+            إضافة و الذهاب للخطوة التالية
+          </AppSubmitButton>
         </div>
       </AppForm>
     </div>

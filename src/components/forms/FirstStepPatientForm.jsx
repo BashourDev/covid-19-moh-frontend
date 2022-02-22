@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
+import { useParams } from "react-router-dom";
 import api from "../../api/api";
 import AppForm from "../AppForm";
 import AppFormRadioButton from "../AppFormRadioButton";
@@ -8,11 +9,14 @@ import AppInput from "../AppInput";
 import AppSubmitButton from "../AppSubmitButton";
 
 const FirstStepPatientForm = ({ initialValues, setPatient, setStep }) => {
+  const params = useParams();
+
   const handleSubmit = async (values) => {
     try {
       const res = await api.post("/api/patients/first-step", {
         ...values,
         // gender: values.gender === "true" ? true : false,
+        id: params?.pid,
       });
       setPatient({ ...initialValues, ...res.data });
       toast.success("تمت العملية بنجاح");

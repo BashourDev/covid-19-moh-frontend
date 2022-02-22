@@ -2,7 +2,11 @@ import React, { useContext, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { ProSidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
-import { MdTrendingUp, MdOutlineCoronavirus } from "react-icons/md";
+import {
+  MdTrendingUp,
+  MdOutlineCoronavirus,
+  MdSummarize,
+} from "react-icons/md";
 import { RiHospitalFill } from "react-icons/ri";
 import { FaUserInjured, FaRegChartBar } from "react-icons/fa";
 import { AiOutlineMenu } from "react-icons/ai";
@@ -61,6 +65,9 @@ const Dashboard = () => {
                 <NavLink to={"/dashboard/hospitals/private"}>خاصة</NavLink>
               </MenuItem>
             </SubMenu>
+            <MenuItem icon={<MdSummarize />}>
+              <NavLink to={"/dashboard/reports"}>التقارير</NavLink>
+            </MenuItem>
             <MenuItem icon={<MdTrendingUp />}>
               <NavLink to={"/dashboard/monitor-hospital"}>
                 مراقبة المشفى

@@ -12,6 +12,7 @@ import Hospitals from "./pages/Hospitals";
 import HospitalForm from "./components/forms/HospitalForm";
 import HospitalReports from "./pages/HospitalReports";
 import HospitalReportForm from "./components/forms/HospitalReportForm";
+import AllReports from "./pages/AllReports";
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -52,6 +53,7 @@ function App() {
               <Route path="add" element={<HospitalForm />} />
               <Route path="edit/:hid" element={<HospitalForm />} />
             </Route>
+            <Route path="reports" element={<AllReports />} />
             <Route path="monitor-hospital" element={<HospitalReports />} />
             <Route
               path="monitor-hospital/add"

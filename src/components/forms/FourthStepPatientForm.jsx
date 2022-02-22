@@ -132,8 +132,12 @@ const FourthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
           >
             إلغاء
           </AppSubmitButton>
-          <AppSubmitButton>إضافة</AppSubmitButton>
-          <AppSubmitButton>إضافة و الذهاب للخطوة التالية</AppSubmitButton>
+          <AppSubmitButton disabled={initialValues.id === undefined}>
+            إضافة
+          </AppSubmitButton>
+          <AppSubmitButton disabled={initialValues.id === undefined}>
+            إضافة و الذهاب للخطوة التالية
+          </AppSubmitButton>
         </div>
       </AppForm>
     </div>
