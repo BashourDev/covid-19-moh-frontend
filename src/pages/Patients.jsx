@@ -6,18 +6,23 @@ import api from "../api/api";
 import { toast } from "react-toastify";
 import { conf } from "../components/appConfirm";
 import moment from "../myMoment";
+import ReactPaginate from "react-paginate";
 
 const Patients = () => {
   const [patients, setPatients] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [pageCount, setPageCount] = useState(0);
   const navigate = useNavigate();
 
-  const getPatients = async (name = "") => {
+  const getPatients = async (name = "", pageNum = 0) => {
     try {
       const res = await api.get(
-        `/api/patients/hospital-patients?searchKey=${name}`
+        `/api/patients/hospital-patients?searchKey=${name}&pageNum=${
+          pageNum + 1
+        }`
       );
-      setPatients(res.data);
+      setPatients(res.data.data);
+      setPageCount(Math.ceil(res.data.total / res.data.per_page));
     } catch (error) {
       toast.error("عذرا لا تملك صلاحية");
       navigate(-1);
@@ -55,6 +60,10 @@ const Patients = () => {
     }
   };
 
+  const handlePageClick = (event) => {
+    getPatients(searchText, event.selected);
+  };
+
   return (
     <div className="w-full py-5">
       <div className="flex bg-white w-full px-32 xl:px-40 py-2 justify-between border-y-[0.1px] border-lightGray/50">
@@ -81,7 +90,7 @@ const Patients = () => {
       <div className="flex flex-col px-16">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-            <div className="overflow-hidden">
+            <div className="overflow-y-scroll max-h-[67vh] 2xl:max-h-[70vh]">
               <table className="min-w-full">
                 <thead className="bg-white border-b">
                   <tr>
@@ -168,6 +177,20 @@ const Patients = () => {
                 </tbody>
               </table>
             </div>
+            <ReactPaginate
+              className={"flex self-center my-2"}
+              pageClassName={"border-2 px-2 py-1 rounded-sm mx-1"}
+              activeClassName="text-white border-primary bg-primary"
+              previousClassName="border-2 px-2 py-1 rounded-sm mx-1"
+              nextClassName="border-2 px-2 py-1 rounded-sm mx-1"
+              breakLabel="..."
+              nextLabel="التالي >"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={5}
+              pageCount={pageCount}
+              previousLabel="< السابق"
+              renderOnZeroPageCount={null}
+            />
           </div>
         </div>
       </div>

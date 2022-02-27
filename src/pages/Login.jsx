@@ -33,15 +33,17 @@ const Login = () => {
         password: values.password,
       });
 
-      console.log("====================================");
-      console.log(res);
-      console.log("====================================");
-
       userContext.setUser(res.data.user);
       setUser(res.data.user);
       setToken(res.data.token);
 
-      navigate("/dashboard/statistics");
+      if (res.data.user.role === 0) {
+        navigate("/dashboard/statistics");
+      } else if (res.data.user.role === 1) {
+        navigate("/dashboard/monitor-patients");
+      } else if (res.data.user.role === 2) {
+        navigate("/dashboard/monitor-hospitals");
+      }
     } catch (err) {
       if (err?.response?.status === 401) {
         toast.error("خطأ في اسم المستخدم او كلمة المرور!");

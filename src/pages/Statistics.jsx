@@ -1,7 +1,12 @@
 import React from "react";
+import PatientsBarChart from "../components/PatientsBarChart";
 
 const Statistics = () => {
-  return <div></div>;
+  return (
+    <div>
+      <PatientsBarChart />
+    </div>
+  );
 };
 
 export default Statistics;

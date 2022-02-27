@@ -13,6 +13,7 @@ import HospitalForm from "./components/forms/HospitalForm";
 import HospitalReports from "./pages/HospitalReports";
 import HospitalReportForm from "./components/forms/HospitalReportForm";
 import AllReports from "./pages/AllReports";
+import Statistics from "./pages/Statistics";
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -46,7 +47,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />}>
-            <Route path="statistics" element={null} />
+            <Route path="statistics" element={<Statistics />} />
             <Route path="hospitals">
               <Route path="public" element={<Hospitals />} />
               <Route path="private" element={<Hospitals />} />

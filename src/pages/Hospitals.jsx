@@ -8,20 +8,26 @@ import { toast } from "react-toastify";
 import Loading from "../components/Loading";
 import { conf } from "../components/appConfirm";
 import moment from "../myMoment";
+import ReactPaginate from "react-paginate";
 
 const Hospitals = () => {
   const [hospitals, setHospitals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [type, setType] = useState("");
   const [searchText, setSearchText] = useState("");
+  const [pageCount, setPageCount] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
 
-  const getHospitals = async (name = "", hType) => {
+  const getHospitals = async (name = "", hType, pageNum = 0) => {
     setLoading(true);
     try {
-      const res = await api.get(`/api/hospitals/${hType}?name=${name}`);
-      setHospitals(res.data);
+      const res = await api.get(
+        `/api/hospitals/${hType}?name=${name}&pageNum=${pageNum + 1}`
+      );
+      console.log(res);
+      setHospitals(res.data.data);
+      setPageCount(Math.ceil(res.data.total / res.data.per_page));
     } catch (error) {
       if (error?.response?.status === 403) {
         toast.error("عذرا لا تملك صلاحية");
@@ -78,6 +84,14 @@ const Hospitals = () => {
     }
   };
 
+  const handlePageClick = (event) => {
+    if (location.pathname === "/dashboard/hospitals/public") {
+      getHospitals(searchText, "public", event.selected);
+    } else {
+      getHospitals(searchText, "private", event.selected);
+    }
+  };
+
   return (
     <div className="w-full py-5">
       <div className="flex bg-white w-full px-32 xl:px-40 py-2 justify-between border-y-[0.1px] border-lightGray/50">
@@ -104,7 +118,7 @@ const Hospitals = () => {
       <div className="flex flex-col px-16">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-            <div className="overflow-hidden">
+            <div className="overflow-y-scroll max-h-[67vh] 2xl:max-h-[70vh]">
               {loading ? (
                 <Loading />
               ) : (
@@ -203,6 +217,20 @@ const Hospitals = () => {
                   </tbody>
                 </table>
               )}
+              <ReactPaginate
+                className={"flex self-center my-2"}
+                pageClassName={"border-2 px-2 py-1 rounded-sm mx-1"}
+                activeClassName="text-white border-primary bg-primary"
+                previousClassName="border-2 px-2 py-1 rounded-sm mx-1"
+                nextClassName="border-2 px-2 py-1 rounded-sm mx-1"
+                breakLabel="..."
+                nextLabel="التالي >"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={5}
+                pageCount={pageCount}
+                previousLabel="< السابق"
+                renderOnZeroPageCount={null}
+              />
             </div>
           </div>
         </div>

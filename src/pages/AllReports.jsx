@@ -24,7 +24,6 @@ const AllReports = () => {
     setLoading(true);
     try {
       const res = await api.get(`/api/all-reports?start=${start}&end=${end}`);
-      console.log(res);
       setReports(res.data);
     } catch (error) {
       toast.error("عذرا لا تملك صلاحية");
@@ -103,7 +102,7 @@ const AllReports = () => {
       <div className="flex flex-col px-16">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-            <div className="overflow-hidden">
+            <div className="overflow-y-scroll max-h-[67vh] 2xl:max-h-[70vh]">
               {loading ? (
                 <Loading />
               ) : (
@@ -162,13 +161,13 @@ const AllReports = () => {
                         scope="col"
                         className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
                       >
-                        مضُاف من قِبَل
+                        مُضاف من قِبَل
                       </th>
                       <th
                         scope="col"
                         className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
                       >
-                        آخر تحديث
+                        مُضاف في
                       </th>
                     </tr>
                   </thead>
