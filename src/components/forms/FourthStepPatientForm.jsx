@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import api from "../../api/api";
+import AppButton from "../AppButton";
 import AppCheckBox from "../AppCheckBox";
 import AppForm from "../AppForm";
 import AppInput from "../AppInput";
 import AppSubmitButton from "../AppSubmitButton";
 
 const FourthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
   const handleSubmit = async (values) => {
+    setIsLoading(true);
     try {
       const res = await api.put(
         `/api/patients/fourth-step/${initialValues.id}`,
@@ -24,6 +30,7 @@ const FourthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
         toast.error("عذرا حدث خطأ");
       }
     }
+    setIsLoading(false);
   };
 
   return (
@@ -127,15 +134,23 @@ const FourthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
         </div>
 
         <div className="grid grid-cols-3 gap-10">
-          <AppSubmitButton
+          <AppButton
+            type="button"
+            onClick={() => navigate(-1)}
             className={"border-dark text-dark hover:bg-dark hover:text-white"}
           >
             إلغاء
-          </AppSubmitButton>
-          <AppSubmitButton disabled={initialValues.id === undefined}>
+          </AppButton>
+          <AppSubmitButton
+            disabled={initialValues.id === undefined}
+            isLoading={isLoading}
+          >
             إضافة
           </AppSubmitButton>
-          <AppSubmitButton disabled={initialValues.id === undefined}>
+          <AppSubmitButton
+            disabled={initialValues.id === undefined}
+            isLoading={isLoading}
+          >
             إضافة و الذهاب للخطوة التالية
           </AppSubmitButton>
         </div>

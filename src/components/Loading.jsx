@@ -2,10 +2,14 @@ import React from "react";
 import Lottie from "lottie-react";
 import loadingAn from "../assets/loading-state.json";
 
-const Loading = () => {
+const Loading = ({ className }) => {
   return (
     <div className="flex justify-center items-center self-center">
-      <Lottie animationData={loadingAn} className="w-20 h-20 self-center" />
+      <Lottie
+        animationData={loadingAn}
+        loop
+        className={`w-20 h-20 self-center ${className}`}
+      />
     </div>
   );
 };

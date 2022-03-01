@@ -1,17 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../../api/api";
 import AppForm from "../AppForm";
 import AppFormRadioButton from "../AppFormRadioButton";
 import AppInput from "../AppInput";
 import AppSubmitButton from "../AppSubmitButton";
+import AppSelect from "../AppSelect";
+import AppButton from "../AppButton";
 
-const FirstStepPatientForm = ({ initialValues, setPatient, setStep }) => {
+const FirstStepPatientForm = ({
+  initialValues,
+  setPatient,
+  setStep,
+  bloodTypes,
+}) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const params = useParams();
 
   const handleSubmit = async (values) => {
+    setIsLoading(true);
     try {
       const res = await api.post("/api/patients/first-step", {
         ...values,
@@ -28,6 +38,7 @@ const FirstStepPatientForm = ({ initialValues, setPatient, setStep }) => {
         toast.error("عذرا حدث خطأ");
       }
     }
+    setIsLoading(false);
   };
 
   return (
@@ -106,11 +117,16 @@ const FirstStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             label={"رقم الهاتف (المحمول):"}
             containerClassName="grow"
           />
-          <AppInput
+          {/* <AppInput
             id={"bloodType"}
             placeholder={"الزمرة الدموية"}
             label={"الزمرة الدموية:"}
             containerClassName="grow"
+          /> */}
+          <AppSelect
+            label={"الزمرة الدموية:"}
+            name={"bloodType"}
+            options={bloodTypes}
           />
         </div>
         <div className="grid grid-cols-3">
@@ -128,13 +144,17 @@ const FirstStepPatientForm = ({ initialValues, setPatient, setStep }) => {
           />
         </div>
         <div className="grid grid-cols-3 gap-10">
-          <AppSubmitButton
+          <AppButton
+            type="button"
+            onClick={() => navigate(-1)}
             className={"border-dark text-dark hover:bg-dark hover:text-white"}
           >
             إلغاء
+          </AppButton>
+          <AppSubmitButton isLoading={isLoading}>إضافة</AppSubmitButton>
+          <AppSubmitButton isLoading={isLoading}>
+            إضافة والذهاب للخطوة التالية
           </AppSubmitButton>
-          <AppSubmitButton>إضافة</AppSubmitButton>
-          <AppSubmitButton>إضافة و الذهاب للخطوة التالية</AppSubmitButton>
         </div>
       </AppForm>
     </div>

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import api from "../../api/api";
+import AppButton from "../AppButton";
 import AppForm from "../AppForm";
 import AppInput from "../AppInput";
 import AppSubmitButton from "../AppSubmitButton";
@@ -20,6 +21,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const HospitalReportForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   let initialValues = {
     emergencyReservedBeds: "",
@@ -28,6 +30,7 @@ const HospitalReportForm = () => {
   };
 
   const handleCreate = async (values) => {
+    setIsLoading(true);
     try {
       await api.post(`/api/hospital-reports/add-report`, values);
       toast.success("تم إنشاء التقرير بنجاح");
@@ -40,6 +43,7 @@ const HospitalReportForm = () => {
         toast.error("عذرا حدث خطأ");
       }
     }
+    setIsLoading(false);
   };
 
   return (
@@ -74,13 +78,15 @@ const HospitalReportForm = () => {
         </div>
 
         <div className="grid grid-cols-3 gap-10 justify-between">
-          <AppSubmitButton
+          <AppButton
+            type="button"
+            onClick={() => navigate(-1)}
             className={"border-dark text-dark hover:bg-dark hover:text-white"}
           >
             إلغاء
-          </AppSubmitButton>
+          </AppButton>
           <span></span>
-          <AppSubmitButton>إضافة</AppSubmitButton>
+          <AppSubmitButton isLoading={isLoading}>إضافة</AppSubmitButton>
         </div>
       </AppForm>
     </div>

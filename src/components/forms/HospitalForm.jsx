@@ -54,6 +54,7 @@ const HospitalForm = () => {
   const location = useLocation();
   const params = useParams();
   const [isCreate, setIsCreate] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [initialValues, setInitialValues] = useState({
     name: "",
     location: "",
@@ -108,6 +109,7 @@ const HospitalForm = () => {
   }, []);
 
   const handleCreate = async (values) => {
+    setIsLoading(true);
     try {
       await api.post("/api/hospitals/create", values);
       toast.success("تم الإنشاء بنجاح");
@@ -121,6 +123,7 @@ const HospitalForm = () => {
         toast.error("عذرا حدث خطأ");
       }
     }
+    setIsLoading(false);
   };
 
   const handleEdit = async (values) => {
@@ -279,7 +282,7 @@ const HospitalForm = () => {
             إلغاء
           </AppButton>
           <span></span>
-          <AppSubmitButton>
+          <AppSubmitButton isLoading={isLoading}>
             {isCreate ? <span>إضافة</span> : <span>تعديل</span>}
           </AppSubmitButton>
         </div>

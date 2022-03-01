@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import * as Yup from "yup";
 import { ReactComponent as CovidVaccine } from "../assets/covid-vaccine.svg";
 import AppSubmitButton from "../components/AppSubmitButton";
@@ -18,6 +18,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
   const initialValues = {
@@ -26,6 +27,7 @@ const Login = () => {
   };
 
   const handleLogin = async (values) => {
+    setIsLoading(true);
     try {
       await api.get("sanctum/csrf-cookie");
       const res = await api.post("/api/login", {
@@ -51,6 +53,7 @@ const Login = () => {
         toast.error("حدث خطأ داخلي الرجاء إعادة المحاولة!");
       }
     }
+    setIsLoading(false);
   };
 
   return (
@@ -59,7 +62,7 @@ const Login = () => {
         <h2 className="text-dark my-4 text-3xl">تسجيل الدخول</h2>
         <div className="grid grid-cols-2 px-7 2xl:px-14">
           <CovidVaccine className="w-72 h-80 2xl:w-96 2xl:h-110" />
-          <div dir="rtl" className="flex flex-col justify-center">
+          <div dir="rtl" className="flex flex-col justify-center relative">
             <AppForm
               initialValues={initialValues}
               validationSchema={validationSchema}
@@ -79,7 +82,9 @@ const Login = () => {
                 type="password"
                 Icon={AiOutlineKey}
               />
-              <AppSubmitButton>تسجيل الدخول</AppSubmitButton>
+              <AppSubmitButton isLoading={isLoading}>
+                تسجيل الدخول
+              </AppSubmitButton>
             </AppForm>
           </div>
         </div>

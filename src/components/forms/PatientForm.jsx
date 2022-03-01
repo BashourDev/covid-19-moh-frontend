@@ -14,6 +14,7 @@ const PatientForm = () => {
   const [step, setStep] = useState(1);
   const location = useLocation();
   const params = useParams();
+  const bloodTypes = ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"];
   const [patient, setPatient] = useState({
     // first part
     doctor: "",
@@ -24,7 +25,7 @@ const PatientForm = () => {
     address: "",
     landline: "",
     mobileNumber: "",
-    bloodType: "",
+    bloodType: bloodTypes[0],
     height: "",
     weight: "",
 
@@ -196,6 +197,7 @@ const PatientForm = () => {
           initialValues={patient}
           setPatient={setPatient}
           setStep={setStep}
+          bloodTypes={bloodTypes}
         />
       )}
       {step === 2 && (
