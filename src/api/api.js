@@ -4,7 +4,7 @@ import { getToken } from "./token";
 const api = Axios.create({
   baseURL: process.env.REACT_APP_API,
   headers: { "content-type": "application/json", Accept: "application/json" },
-  withCredentials: false,
+  withCredentials: true,
 });
 
 api.interceptors.request.use(
