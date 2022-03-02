@@ -169,7 +169,7 @@ const PatientsBarChart = () => {
         )}
       </div>
       <div className="px-5 flex justify-around">
-        <div className="w-[68vw] 2xl:w-[70vw]">
+        <div className="w-[68vw] 2xl:w-[70vw] bg-white my-5 ring-1 ring-light rounded-lg shadow-md shadow-lightGray overflow-x-scroll ">
           <Bar
             data={{
               labels: labels,
@@ -179,7 +179,7 @@ const PatientsBarChart = () => {
             className=""
           />
         </div>
-        <div className="bg-blue-200 flex items-center">here goes the donut</div>
+        <div className="flex items-center">here goes the donut</div>
       </div>
     </div>
   );

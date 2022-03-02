@@ -7,14 +7,17 @@ import { toast } from "react-toastify";
 import { conf } from "../components/appConfirm";
 import moment from "../myMoment";
 import ReactPaginate from "react-paginate";
+import Loading from "../components/Loading";
 
 const Patients = () => {
   const [patients, setPatients] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [pageCount, setPageCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const getPatients = async (name = "", pageNum = 0) => {
+    setIsLoading(true);
     try {
       const res = await api.get(
         `/patients/hospital-patients?searchKey=${name}&pageNum=${pageNum + 1}`
@@ -25,6 +28,7 @@ const Patients = () => {
       toast.error("عذرا لا تملك صلاحية");
       navigate(-1);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -89,91 +93,95 @@ const Patients = () => {
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
             <div className="overflow-y-scroll max-h-[67vh] 2xl:max-h-[70vh]">
-              <table className="min-w-full">
-                <thead className="bg-white border-b">
-                  <tr>
-                    <th
-                      scope="col"
-                      className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
-                    >
-                      الإسم
-                    </th>
-                    <th
-                      scope="col"
-                      className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
-                    >
-                      العنوان
-                    </th>
-                    <th
-                      scope="col"
-                      className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
-                    >
-                      تاريخ الولادة
-                    </th>
-                    <th
-                      scope="col"
-                      className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
-                    >
-                      رقم الهاتف المحمول
-                    </th>
-                    <th
-                      scope="col"
-                      className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
-                    >
-                      مضُاف من قِبَل
-                    </th>
-                    <th
-                      scope="col"
-                      className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
-                    >
-                      آخر تحديث
-                    </th>
-                    <th
-                      scope="col"
-                      className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
-                    ></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {patients.map((patient, i) => (
-                    <tr
-                      key={i}
-                      className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                    >
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {patient.name}
-                      </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {patient.address}
-                      </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {patient.birthday}
-                      </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {patient.mobileNumber}
-                      </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {patient.patient_analyst.name}
-                      </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {moment(patient.updated_at).calendar()}
-                      </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap flex">
-                        <Link
-                          to={`/dashboard/monitor-patients/complete/${patient.id}`}
-                          className="mx-3"
-                        >
-                          <MdEdit className="text-info text-xl" />
-                        </Link>
-                        <MdDelete
-                          onClick={() => handleDelete(patient.id)}
-                          className="text-danger text-xl cursor-pointer mx-3"
-                        />
-                      </td>
+              {isLoading ? (
+                <Loading />
+              ) : (
+                <table className="min-w-full">
+                  <thead className="bg-white border-b">
+                    <tr>
+                      <th
+                        scope="col"
+                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                      >
+                        الإسم
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                      >
+                        العنوان
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                      >
+                        تاريخ الولادة
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                      >
+                        رقم الهاتف المحمول
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                      >
+                        مضُاف من قِبَل
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                      >
+                        آخر تحديث
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                      ></th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {patients.map((patient, i) => (
+                      <tr
+                        key={i}
+                        className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
+                      >
+                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                          {patient.name}
+                        </td>
+                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                          {patient.address}
+                        </td>
+                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                          {patient.birthday}
+                        </td>
+                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                          {patient.mobileNumber}
+                        </td>
+                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                          {patient.patient_analyst.name}
+                        </td>
+                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                          {moment(patient.updated_at).calendar()}
+                        </td>
+                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap flex">
+                          <Link
+                            to={`/dashboard/monitor-patients/complete/${patient.id}`}
+                            className="mx-3"
+                          >
+                            <MdEdit className="text-info text-xl" />
+                          </Link>
+                          <MdDelete
+                            onClick={() => handleDelete(patient.id)}
+                            className="text-danger text-xl cursor-pointer mx-3"
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
             </div>
             <ReactPaginate
               className={"flex self-center my-2"}
