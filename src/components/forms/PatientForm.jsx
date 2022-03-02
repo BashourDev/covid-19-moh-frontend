@@ -134,7 +134,7 @@ const PatientForm = () => {
   });
 
   const getPatient = async () => {
-    const res = await api.get(`/api/patients/${params.pid}`);
+    const res = await api.get(`/patients/${params.pid}`);
     setPatient({ ...patient, ...res.data });
     setStep(patient.step);
   };

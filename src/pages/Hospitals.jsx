@@ -23,7 +23,7 @@ const Hospitals = () => {
     setLoading(true);
     try {
       const res = await api.get(
-        `/api/hospitals/${hType}?name=${name}&pageNum=${pageNum + 1}`
+        `/hospitals/${hType}?name=${name}&pageNum=${pageNum + 1}`
       );
       console.log(res);
       setHospitals(res.data.data);
@@ -57,7 +57,7 @@ const Hospitals = () => {
     }
 
     try {
-      await api.delete(`/api/hospitals/${id}/delete`);
+      await api.delete(`/hospitals/${id}/delete`);
       toast.success("تم الحذف بنجاح");
 
       if (location.pathname === "/dashboard/hospitals/public") {

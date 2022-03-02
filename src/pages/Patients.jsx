@@ -17,9 +17,7 @@ const Patients = () => {
   const getPatients = async (name = "", pageNum = 0) => {
     try {
       const res = await api.get(
-        `/api/patients/hospital-patients?searchKey=${name}&pageNum=${
-          pageNum + 1
-        }`
+        `/patients/hospital-patients?searchKey=${name}&pageNum=${pageNum + 1}`
       );
       setPatients(res.data.data);
       setPageCount(Math.ceil(res.data.total / res.data.per_page));
@@ -41,7 +39,7 @@ const Patients = () => {
     }
 
     try {
-      await api.delete(`/api/patients/${id}/delete`);
+      await api.delete(`/patients/${id}/delete`);
       toast.success("تم الحذف بنجاح");
 
       getPatients(searchText);

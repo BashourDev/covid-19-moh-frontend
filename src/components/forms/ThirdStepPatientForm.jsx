@@ -18,7 +18,7 @@ const ThirdStepPatientForm = ({ initialValues, setPatient, setStep }) => {
     setIsLoading(true);
     try {
       const res = await api.put(
-        `/api/patients/third-step/${initialValues.id}`,
+        `/patients/third-step/${initialValues.id}`,
         values
       );
       setPatient({ ...initialValues, ...res.data });

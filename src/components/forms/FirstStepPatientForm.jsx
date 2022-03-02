@@ -23,7 +23,7 @@ const FirstStepPatientForm = ({
   const handleSubmit = async (values) => {
     setIsLoading(true);
     try {
-      const res = await api.post("/api/patients/first-step", {
+      const res = await api.post("/patients/first-step", {
         ...values,
         // gender: values.gender === "true" ? true : false,
         id: params?.pid,

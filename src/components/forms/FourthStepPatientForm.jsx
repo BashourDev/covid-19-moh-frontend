@@ -17,7 +17,7 @@ const FourthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
     setIsLoading(true);
     try {
       const res = await api.put(
-        `/api/patients/fourth-step/${initialValues.id}`,
+        `/patients/fourth-step/${initialValues.id}`,
         values
       );
       setPatient({ ...initialValues, ...res.data });

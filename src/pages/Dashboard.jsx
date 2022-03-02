@@ -22,7 +22,7 @@ const Dashboard = () => {
   const userContext = useContext(UserContext);
 
   const logout = async () => {
-    await api.get("/api/logout");
+    await api.get("/logout");
     removeUser();
     removeToken();
     userContext.setUser({});

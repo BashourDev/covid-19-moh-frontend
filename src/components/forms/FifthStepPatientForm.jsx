@@ -17,7 +17,7 @@ const FifthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
     setIsLoading(true);
     try {
       const res = await api.put(
-        `/api/patients/fifth-step/${initialValues.id}`,
+        `/patients/fifth-step/${initialValues.id}`,
         values
       );
       setPatient({ ...initialValues, ...res.data });

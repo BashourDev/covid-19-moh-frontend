@@ -15,7 +15,7 @@ const HospitalReports = () => {
   const getReports = async () => {
     setLoading(true);
     try {
-      const res = await api.get("/api/hospital-reports");
+      const res = await api.get("/hospital-reports");
       setReports(res.data);
     } catch (error) {
       toast.error("عذرا لا تملك صلاحية");
@@ -36,7 +36,7 @@ const HospitalReports = () => {
     }
 
     try {
-      await api.delete(`/api/hospital-reports/delete/${id}`);
+      await api.delete(`/hospital-reports/delete/${id}`);
       toast.success("تم الحذف بنجاح");
       getReports();
     } catch (error) {

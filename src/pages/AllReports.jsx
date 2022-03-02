@@ -23,7 +23,7 @@ const AllReports = () => {
   const getReports = async () => {
     setLoading(true);
     try {
-      const res = await api.get(`/api/all-reports?start=${start}&end=${end}`);
+      const res = await api.get(`/all-reports?start=${start}&end=${end}`);
       setReports(res.data);
     } catch (error) {
       toast.error("عذرا لا تملك صلاحية");

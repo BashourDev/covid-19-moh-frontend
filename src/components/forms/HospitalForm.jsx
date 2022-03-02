@@ -72,7 +72,7 @@ const HospitalForm = () => {
 
   const getHospital = async () => {
     try {
-      const res = await api.get(`/api/hospitals/${params.hid}`);
+      const res = await api.get(`/hospitals/${params.hid}`);
       setInitialValues({
         name: res.data.name,
         location: res.data.location,
@@ -111,7 +111,7 @@ const HospitalForm = () => {
   const handleCreate = async (values) => {
     setIsLoading(true);
     try {
-      await api.post("/api/hospitals/create", values);
+      await api.post("/hospitals/create", values);
       toast.success("تم الإنشاء بنجاح");
       navigate(-1);
     } catch (error) {
@@ -128,7 +128,7 @@ const HospitalForm = () => {
 
   const handleEdit = async (values) => {
     try {
-      await api.put(`/api/hospitals/${params.hid}/update`, values);
+      await api.put(`/hospitals/${params.hid}/update`, values);
       toast.success("تم التعديل بنجاح");
       navigate(-1);
     } catch (error) {

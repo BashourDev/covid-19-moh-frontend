@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { setUser } from "../api/user";
 import { setToken } from "../api/token";
 import UserContext from "../contexts/userContext";
+import axios from "axios";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required("اسم المستخدم مطلوب"),
@@ -29,7 +30,7 @@ const Login = () => {
   const handleLogin = async (values) => {
     setIsLoading(true);
     try {
-      await api.get("sanctum/csrf-cookie");
+      await axios.get("sanctum/csrf-cookie");
       const res = await api.post("/apis/login", {
         username: values.username,
         password: values.password,

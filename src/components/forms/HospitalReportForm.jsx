@@ -32,7 +32,7 @@ const HospitalReportForm = () => {
   const handleCreate = async (values) => {
     setIsLoading(true);
     try {
-      await api.post(`/api/hospital-reports/add-report`, values);
+      await api.post(`/hospital-reports/add-report`, values);
       toast.success("تم إنشاء التقرير بنجاح");
       navigate(-1);
     } catch (error) {

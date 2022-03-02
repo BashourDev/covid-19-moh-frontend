@@ -67,7 +67,7 @@ const PatientsBarChart = () => {
 
   const getData = async () => {
     const res = await api.get(
-      `/api/hospitals/bar-chart-hospital-patients?start=${start}&end=${end}`
+      `/hospitals/bar-chart-hospital-patients?start=${start}&end=${end}`
     );
     assignLabels(res.data);
     assignResedentDS(res.data);
