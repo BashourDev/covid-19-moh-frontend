@@ -25,7 +25,6 @@ const Hospitals = () => {
       const res = await api.get(
         `/hospitals/${hType}?name=${name}&pageNum=${pageNum + 1}`
       );
-      console.log(res);
       setHospitals(res.data.data);
       setPageCount(Math.ceil(res.data.total / res.data.per_page));
     } catch (error) {
