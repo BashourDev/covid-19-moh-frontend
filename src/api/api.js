@@ -5,7 +5,6 @@ const api = Axios.create({
   baseURL: process.env.REACT_APP_API,
   headers: { "content-type": "application/json", Accept: "application/json" },
   withCredentials: true,
-  xsrfTokenName: "XSRF-TOKEN",
 });
 
 api.interceptors.request.use(
