@@ -30,7 +30,7 @@ const Login = () => {
     setIsLoading(true);
     try {
       await api.get("sanctum/csrf-cookie");
-      const res = await api.post("/api/login", {
+      const res = await api.post("/apis/login", {
         username: values.username,
         password: values.password,
       });

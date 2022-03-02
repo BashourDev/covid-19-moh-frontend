@@ -123,7 +123,7 @@ const PatientsBarChart = () => {
   }, []);
 
   return (
-    <div className="m-10 border-2 w-[75vw] overflow-x-scroll">
+    <div className="w-full py-5">
       <div className="flex bg-white w-full px-20 xl:px-32 py-2 space-x-3 border-y-[0.1px] border-lightGray/50">
         <span className="flex items-center text-xl font-bold text-dark">
           إحصائيات المرضى
@@ -168,14 +168,19 @@ const PatientsBarChart = () => {
           </span>
         )}
       </div>
-      <Bar
-        data={{
-          labels: labels,
-          datasets,
-        }}
-        options={options}
-        className=""
-      />
+      <div className="px-5 flex justify-around">
+        <div className="w-[68vw] 2xl:w-[70vw]">
+          <Bar
+            data={{
+              labels: labels,
+              datasets,
+            }}
+            options={options}
+            className=""
+          />
+        </div>
+        <div className="bg-blue-200 flex items-center">here goes the donut</div>
+      </div>
     </div>
   );
 };

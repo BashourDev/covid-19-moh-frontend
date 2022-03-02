@@ -3,7 +3,7 @@ import PatientsBarChart from "../components/PatientsBarChart";
 
 const Statistics = () => {
   return (
-    <div>
+    <div className="w-full">
       <PatientsBarChart />
     </div>
   );
