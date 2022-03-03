@@ -14,6 +14,8 @@ import {
   ArcElement,
 } from "chart.js";
 import AppSelectDoughnut from "./AppSelectDoughnut";
+import Loading from "./Loading";
+import { toast } from "react-toastify";
 
 ChartJS.register(
   CategoryScale,
@@ -52,6 +54,8 @@ const PatientsBarChart = () => {
   const [allHospitals, setAllHospitals] = useState([]);
   const [selectedHospital, setSelectedHospital] = useState({});
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const isValidDate = (dateObject) =>
     new Date(dateObject).toString() !== "Invalid Date";
 
@@ -73,30 +77,33 @@ const PatientsBarChart = () => {
   };
 
   const getData = async () => {
-    const res = await api.get(
-      `/hospitals/bar-chart-hospital-patients?start=${start}&end=${end}`
-    );
-    assignLabels(res.data);
-    assignResedentDS(res.data);
-    assignReleasedDS(res.data);
-    assignDeseasedDS(res.data);
+    setIsLoading(true);
+    try {
+      const res = await api.get(
+        `/hospitals/bar-chart-hospital-patients?start=${start}&end=${end}`
+      );
+      assignLabels(res.data);
+      assignResedentDS(res.data);
+      assignReleasedDS(res.data);
+      assignDeseasedDS(res.data);
 
-    setAllHospitals(res.data);
+      setAllHospitals(res.data);
 
-    console.log(res.data);
-
-    setSelectedHospital((oldSH) =>
-      Object.keys(oldSH).length === 0
-        ? res.data[0]
-        : res.data.filter((h, i) => h.id === oldSH.id)[0]
-    );
+      setSelectedHospital((oldSH) =>
+        Object.keys(oldSH).length === 0
+          ? res.data[0]
+          : res.data.filter((h, i) => h.id === oldSH.id)[0]
+      );
+    } catch (error) {
+      if (error?.response?.status === 403) {
+        toast.error("عذرا لا تملك صلاحية");
+      } else {
+        toast.error("حدث خطأ");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
-
-  useEffect(() => {
-    console.log("====================================");
-    console.log(selectedHospital);
-    console.log("====================================");
-  }, [selectedHospital]);
 
   const assignLabels = (data = []) => {
     data.map((d, i) => setLabels((oldLabels) => [...oldLabels, d.name]));
@@ -179,11 +186,11 @@ const PatientsBarChart = () => {
         </div>
         <button
           type="button"
-          disabled={dateError}
+          disabled={dateError || isLoading}
           className="transition text-xl w-32 flex justify-center items-center px-3 border-4 rounded-full border-primary text-primary hover:text-white hover:bg-primary disabled:border-lightGray disabled:text-lightGray disabled:hover:text-white disabled:hover:bg-lightGray"
           onClick={() => handleSearch()}
         >
-          بحث
+          {isLoading ? <Loading className="w-8 h-8" /> : "بحث"}
         </button>
         {dateError && (
           <span className="text-lg text-danger self-center mx-3">
