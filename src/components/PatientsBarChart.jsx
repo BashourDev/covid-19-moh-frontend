@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Bar } from "react-chartjs-2";
+import { Bar, Doughnut } from "react-chartjs-2";
 import api from "../api/api";
 import moment from "../myMoment";
 
@@ -11,7 +11,9 @@ import {
   Title,
   Tooltip,
   Legend,
+  ArcElement,
 } from "chart.js";
+import AppSelectDoughnut from "./AppSelectDoughnut";
 
 ChartJS.register(
   CategoryScale,
@@ -19,7 +21,8 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  ArcElement
 );
 
 export const options = {
@@ -46,6 +49,9 @@ const PatientsBarChart = () => {
   const [end, setEnd] = useState(moment(new Date()).format("YYYY-MM-DD"));
   const [dateError, setDateError] = useState(false);
 
+  const [allHospitals, setAllHospitals] = useState([]);
+  const [selectedHospital, setSelectedHospital] = useState({});
+
   const isValidDate = (dateObject) =>
     new Date(dateObject).toString() !== "Invalid Date";
 
@@ -62,6 +68,7 @@ const PatientsBarChart = () => {
   const handleSearch = () => {
     setLabels([]);
     setDatasets([]);
+    setAllHospitals([]);
     getData();
   };
 
@@ -73,7 +80,23 @@ const PatientsBarChart = () => {
     assignResedentDS(res.data);
     assignReleasedDS(res.data);
     assignDeseasedDS(res.data);
+
+    setAllHospitals(res.data);
+
+    console.log(res.data);
+
+    setSelectedHospital((oldSH) =>
+      Object.keys(oldSH).length === 0
+        ? res.data[0]
+        : res.data.filter((h, i) => h.id === oldSH.id)[0]
+    );
   };
+
+  useEffect(() => {
+    console.log("====================================");
+    console.log(selectedHospital);
+    console.log("====================================");
+  }, [selectedHospital]);
 
   const assignLabels = (data = []) => {
     data.map((d, i) => setLabels((oldLabels) => [...oldLabels, d.name]));
@@ -168,8 +191,8 @@ const PatientsBarChart = () => {
           </span>
         )}
       </div>
-      <div className="px-5 flex justify-around">
-        <div className="w-[68vw] 2xl:w-[70vw] bg-white my-5 ring-1 ring-light rounded-lg shadow-md shadow-lightGray overflow-x-scroll ">
+      <div className="px-5 grid grid-cols-5 justify-around">
+        <div className="col-span-4 bg-white my-5 ring-1 ring-light rounded-lg shadow-md shadow-lightGray overflow-x-scroll ">
           <Bar
             data={{
               labels: labels,
@@ -179,7 +202,33 @@ const PatientsBarChart = () => {
             className=""
           />
         </div>
-        <div className="flex items-center">here goes the donut</div>
+        <div className="col-span-1 flex flex-col mx-5 items-center bg-white my-5 ring-1 ring-light rounded-lg shadow-md shadow-lightGray">
+          <AppSelectDoughnut
+            handleChange={setSelectedHospital}
+            options={allHospitals}
+            value={selectedHospital?.name}
+          />
+          <Doughnut
+            className="my-7"
+            data={{
+              labels: ["الوفيات", "الخريجين", "المقيمين"],
+              datasets: [
+                {
+                  data: [
+                    selectedHospital?.diseased_patients_count,
+                    selectedHospital?.released_patients_count,
+                    selectedHospital?.resident_patients_count,
+                  ],
+                  backgroundColor: [
+                    "rgb(255, 99, 132)",
+                    "rgb(54, 162, 235)",
+                    "rgb(255, 205, 86)",
+                  ],
+                },
+              ],
+            }}
+          />
+        </div>
       </div>
     </div>
   );
