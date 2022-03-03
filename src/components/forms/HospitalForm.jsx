@@ -103,10 +103,10 @@ const HospitalForm = () => {
     if (location.pathname === "/dashboard/hospitals/add") {
       setIsCreate(true);
     } else {
-      setIsCreate(false);
       getHospital();
+      setIsCreate(false);
     }
-  }, []);
+  }, [location]);
 
   const handleCreate = async (values) => {
     setIsLoading(true);
