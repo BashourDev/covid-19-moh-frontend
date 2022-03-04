@@ -30,9 +30,10 @@ const Login = () => {
   const handleLogin = async (values) => {
     setIsLoading(true);
     try {
-      await axios.get(
+      const csrf = await api.get(
         `${process.env.REACT_APP_API_ABSOLUTE}/sanctum/csrf-cookie`
       );
+
       const res = await api.post("/login", {
         username: values.username,
         password: values.password,
