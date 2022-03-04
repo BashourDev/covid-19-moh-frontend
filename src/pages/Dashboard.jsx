@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { ProSidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import {
@@ -19,7 +19,9 @@ import api from "../api/api";
 
 const Dashboard = () => {
   const [sideBarCollapsed, setSideBarCollapsed] = useState(false);
+  const [activeItem, setActiveItem] = useState("");
   const userContext = useContext(UserContext);
+  const location = useLocation();
 
   const logout = async () => {
     await api.get("/logout");
@@ -27,6 +29,30 @@ const Dashboard = () => {
     removeToken();
     userContext.setUser({});
   };
+
+  const checkActiveItem = (items) => {
+    if (activeItem === items) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    if (location.pathname.match("/dashboard/statistics")) {
+      setActiveItem("stat");
+    } else if (location.pathname.match("/dashboard/hospitals/public")) {
+      setActiveItem("puh");
+    } else if (location.pathname.match("/dashboard/hospitals/private")) {
+      setActiveItem("prh");
+    } else if (location.pathname.match("/dashboard/reports")) {
+      setActiveItem("rep");
+    } else if (location.pathname.match("/dashboard/monitor-hospital")) {
+      setActiveItem("mh");
+    } else if (location.pathname.match("/dashboard/monitor-patients")) {
+      setActiveItem("mp");
+    }
+  }, [location]);
 
   return (
     <div dir="rtl" className="flex flex-col h-screen bg-light">
@@ -63,26 +89,42 @@ const Dashboard = () => {
               icon={<AiOutlineMenu />}
               onClick={() => setSideBarCollapsed(!sideBarCollapsed)}
             ></MenuItem>
-            <MenuItem icon={<FaRegChartBar />}>
+            <MenuItem
+              className={`${checkActiveItem("stat") ? "bg-slate-800" : ""}`}
+              icon={<FaRegChartBar />}
+            >
               <NavLink to={"/dashboard/statistics"}>إحصائيات</NavLink>
             </MenuItem>
             <SubMenu title="المشافي" icon={<RiHospitalFill />}>
-              <MenuItem>
+              <MenuItem
+                className={`${checkActiveItem("puh") ? "bg-slate-800" : ""}`}
+              >
                 <NavLink to={"/dashboard/hospitals/public"}>عامة</NavLink>
               </MenuItem>
-              <MenuItem>
+              <MenuItem
+                className={`${checkActiveItem("prh") ? "bg-slate-800" : ""}`}
+              >
                 <NavLink to={"/dashboard/hospitals/private"}>خاصة</NavLink>
               </MenuItem>
             </SubMenu>
-            <MenuItem icon={<MdSummarize />}>
+            <MenuItem
+              className={`${checkActiveItem("rep") ? "bg-slate-800" : ""}`}
+              icon={<MdSummarize />}
+            >
               <NavLink to={"/dashboard/reports"}>التقارير</NavLink>
             </MenuItem>
-            <MenuItem icon={<MdTrendingUp />}>
+            <MenuItem
+              className={`${checkActiveItem("mh") ? "bg-slate-800" : ""}`}
+              icon={<MdTrendingUp />}
+            >
               <NavLink to={"/dashboard/monitor-hospital"}>
                 مراقبة المشفى
               </NavLink>
             </MenuItem>
-            <MenuItem icon={<FaUserInjured />}>
+            <MenuItem
+              className={`${checkActiveItem("mp") ? "bg-slate-800" : ""}`}
+              icon={<FaUserInjured />}
+            >
               <NavLink to={"/dashboard/monitor-patients"}>
                 مراقبة مرضى كورونا
               </NavLink>

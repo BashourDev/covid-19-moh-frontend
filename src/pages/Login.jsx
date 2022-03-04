@@ -47,7 +47,7 @@ const Login = () => {
       } else if (res.data.user.role === 1) {
         navigate("/dashboard/monitor-patients");
       } else if (res.data.user.role === 2) {
-        navigate("/dashboard/monitor-hospitals");
+        navigate("/dashboard/monitor-hospital");
       }
     } catch (err) {
       if (err?.response?.status === 401) {

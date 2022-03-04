@@ -36,7 +36,7 @@ function App() {
     } else if (user?.role === 1 && location.pathname === "/") {
       navigate("/dashboard/monitor-patients");
     } else if (user?.role === 2 && location.pathname === "/") {
-      navigate("/dashboard/monitor-hospitals");
+      navigate("/dashboard/monitor-hospital");
     }
   }, [user]);
 

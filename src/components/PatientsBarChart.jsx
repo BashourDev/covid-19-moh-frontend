@@ -16,6 +16,7 @@ import {
 import AppSelectDoughnut from "./AppSelectDoughnut";
 import Loading from "./Loading";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 ChartJS.register(
   CategoryScale,
@@ -55,6 +56,8 @@ const PatientsBarChart = () => {
   const [selectedHospital, setSelectedHospital] = useState({});
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const isValidDate = (dateObject) =>
     new Date(dateObject).toString() !== "Invalid Date";
@@ -97,6 +100,7 @@ const PatientsBarChart = () => {
     } catch (error) {
       if (error?.response?.status === 403) {
         toast.error("عذرا لا تملك صلاحية");
+        navigate(-1);
       } else {
         toast.error("حدث خطأ");
       }
