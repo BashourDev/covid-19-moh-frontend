@@ -30,7 +30,7 @@ const Login = () => {
   const handleLogin = async (values) => {
     setIsLoading(true);
     try {
-      const csrf = await api.get(
+      await api.get(
         `${process.env.REACT_APP_API_ABSOLUTE}/sanctum/csrf-cookie`
       );
 
