@@ -16,18 +16,22 @@ import { removeUser } from "../api/user";
 import { removeToken } from "../api/token";
 import UserContext from "../contexts/userContext";
 import api from "../api/api";
+import Loading from "../components/Loading";
 
 const Dashboard = () => {
   const [sideBarCollapsed, setSideBarCollapsed] = useState(false);
   const [activeItem, setActiveItem] = useState("");
+  const [loading, setLoading] = useState(false);
   const userContext = useContext(UserContext);
   const location = useLocation();
 
   const logout = async () => {
+    setLoading(true);
     await api.get("/logout");
     removeUser();
     removeToken();
     userContext.setUser({});
+    setLoading(false);
   };
 
   const checkActiveItem = (items) => {
@@ -74,11 +78,12 @@ const Dashboard = () => {
         <div className="flex items-center">
           <AppButton
             onClick={() => logout()}
+            disabled={loading}
             className={
-              "border-light mt-0 mb-0 text-light bg-sky-700 hover:bg-light hover:text-sky-700 w-40 border-4"
+              "border-light mt-0 mb-0 text-light bg-sky-700 hover:bg-light hover:text-sky-700 disabled:text-light disabled:bg-lightGray disabled:hover:bg-light disabled:hover:text-lightGray w-40 border-4"
             }
           >
-            تسجيل الخروج
+            {loading ? <Loading className="w-8 h-8" /> : "تسجيل الخروج"}
           </AppButton>
         </div>
       </div>
