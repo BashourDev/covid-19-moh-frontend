@@ -14,6 +14,19 @@ import HospitalReports from "./pages/HospitalReports";
 import HospitalReportForm from "./components/forms/HospitalReportForm";
 import AllReports from "./pages/AllReports";
 import Statistics from "./pages/Statistics";
+import SetupInterceptors from "./api/SetupInterceptors";
+import api from "./api/api";
+
+function NavigateFunctionComponent(props) {
+  let navigate = useNavigate();
+  let location = useLocation();
+  useEffect(() => {
+    if (api.interceptors.response.handlers.length === 0) {
+      SetupInterceptors(navigate, location);
+    }
+  }, []);
+  return <></>;
+}
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -42,6 +55,7 @@ function App() {
 
   return (
     <div className="overflow-y-hidden">
+      <NavigateFunctionComponent />
       <UserContext.Provider value={{ user: user, setUser: setUser }}>
         <ToastContainer className={"z-50"} rtl autoClose={5000} />
         <Routes>

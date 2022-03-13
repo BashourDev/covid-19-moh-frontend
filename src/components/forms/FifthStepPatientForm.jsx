@@ -74,7 +74,7 @@ const FifthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
           />
         </div>
 
-        <div className="grid grid-cols-3 gap-10">
+        <div className="grid grid-cols-3 gap-10 justify-between w-11/12">
           <AppButton
             type="button"
             onClick={() => navigate(-1)}
@@ -82,18 +82,20 @@ const FifthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
           >
             إلغاء
           </AppButton>
+          <span></span>
           <AppSubmitButton
             disabled={initialValues.id === undefined}
             isLoading={isLoading}
+            onCustomClick={() => navigate("/dashboard/monitor-patients")}
           >
             إضافة
           </AppSubmitButton>
-          <AppSubmitButton
+          {/* <AppSubmitButton
             disabled={initialValues.id === undefined}
             isLoading={isLoading}
           >
             إضافة و الذهاب للخطوة التالية
-          </AppSubmitButton>
+          </AppSubmitButton> */}
         </div>
       </AppForm>
     </div>

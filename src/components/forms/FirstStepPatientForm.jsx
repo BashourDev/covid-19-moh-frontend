@@ -151,7 +151,12 @@ const FirstStepPatientForm = ({
           >
             إلغاء
           </AppButton>
-          <AppSubmitButton isLoading={isLoading}>إضافة</AppSubmitButton>
+          <AppSubmitButton
+            onCustomClick={() => navigate("/dashboard/monitor-patients")}
+            isLoading={isLoading}
+          >
+            إضافة
+          </AppSubmitButton>
           <AppSubmitButton isLoading={isLoading}>
             إضافة والذهاب للخطوة التالية
           </AppSubmitButton>

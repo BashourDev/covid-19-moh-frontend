@@ -133,6 +133,7 @@ const ThirdStepPatientForm = ({ initialValues, setPatient, setStep }) => {
           <AppSubmitButton
             disabled={initialValues.id === undefined}
             isLoading={isLoading}
+            onCustomClick={() => navigate("/dashboard/monitor-patients")}
           >
             إضافة
           </AppSubmitButton>
