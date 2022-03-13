@@ -39,9 +39,7 @@ const HospitalReportForm = () => {
       if (error?.response?.status === 403) {
         toast.error("عذرا لا تملك صلاحية");
         navigate(-1);
-      } else if (error?.response?.status === 401) {
-        navigate("/login");
-      } else {
+      } else if (error?.response?.status >= 500) {
         toast.error("عذرا حدث خطأ");
       }
     }

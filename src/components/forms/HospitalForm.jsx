@@ -93,9 +93,7 @@ const HospitalForm = () => {
       if (error?.response?.status === 403) {
         toast.error("عذرا لا تملك صلاحية");
         navigate(-1);
-      } else if (error?.response?.status === 401) {
-        navigate("/login");
-      } else {
+      } else if (error?.response?.status >= 500) {
         toast.error("عذرا حدث خطأ");
       }
     }
@@ -121,7 +119,7 @@ const HospitalForm = () => {
         toast.error("عذرا لا تملك صلاحية");
       } else if (error?.response?.status === 422) {
         toast.error("عذرا أسماء موظفي المشافي يجب ان تكون فريدة");
-      } else {
+      } else if (error?.response?.status >= 500) {
         toast.error("عذرا حدث خطأ");
       }
     }
@@ -138,9 +136,7 @@ const HospitalForm = () => {
         toast.error("عذرا لا تملك صلاحية");
       } else if (error?.response?.status === 422) {
         toast.error("عذرا أسماء موظفي المشافي يجب ان تكون فريدة");
-      } else if (error?.response?.status === 401) {
-        navigate("/login");
-      } else {
+      } else if (error?.response?.status >= 500) {
         toast.error("عذرا حدث خطأ");
       }
     }
