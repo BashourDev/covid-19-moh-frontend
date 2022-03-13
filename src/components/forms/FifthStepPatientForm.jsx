@@ -28,6 +28,8 @@ const FifthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
         toast.error("عذرا لا تملك صلاحية");
       } else if (error?.response?.status >= 500) {
         toast.error("عذرا حدث خطأ");
+      } else if (error?.response?.status === 401) {
+        navigate("/login");
       }
     }
     setIsLoading(false);

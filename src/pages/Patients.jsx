@@ -50,6 +50,8 @@ const Patients = () => {
     } catch (error) {
       if (error?.response?.status === 403) {
         toast.error("عذرا لا تملك صلاحية");
+      } else if (error?.response?.status === 401) {
+        navigate("/login");
       } else {
         toast.error("حدث خطأ");
       }
