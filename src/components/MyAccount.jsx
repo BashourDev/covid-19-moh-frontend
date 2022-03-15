@@ -10,6 +10,7 @@ import AppInput from "./AppInput";
 import AppFormSwitch from "./AppFormSwitch";
 import AppSubmitButton from "./AppSubmitButton";
 import { Transition } from "@headlessui/react";
+import { toast } from "react-toastify";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("لا يمكن أن يكون حقل الإسم فارغ"),
@@ -52,6 +53,7 @@ const MyAccount = ({ isOpen, setIsOpen }) => {
         console.log(res);
         setUser(res.data);
         userContext.setUser(res.data);
+        toast.success("تمت العملية بنجاح");
         setIsEdit(false);
         setErrorMessage("");
       } catch (error) {
