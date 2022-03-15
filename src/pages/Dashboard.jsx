@@ -17,11 +17,14 @@ import { removeToken } from "../api/token";
 import UserContext from "../contexts/userContext";
 import api from "../api/api";
 import Loading from "../components/Loading";
+import AppModal from "../components/AppModal";
+import MyAccount from "../components/MyAccount";
 
 const Dashboard = () => {
   const [sideBarCollapsed, setSideBarCollapsed] = useState(false);
   const [activeItem, setActiveItem] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const userContext = useContext(UserContext);
   const location = useLocation();
 
@@ -77,10 +80,19 @@ const Dashboard = () => {
         </div>
         <div className="flex items-center">
           <AppButton
+            onClick={() => setIsOpen(true)}
+            disabled={loading}
+            className={
+              "border-light mt-0 mb-0 mx-1 text-light bg-sky-700 hover:bg-light hover:text-sky-700 disabled:text-light disabled:bg-lightGray disabled:hover:bg-light disabled:hover:text-lightGray w-36 border-4"
+            }
+          >
+            {"حسابي"}
+          </AppButton>
+          <AppButton
             onClick={() => logout()}
             disabled={loading}
             className={
-              "border-light mt-0 mb-0 text-light bg-sky-700 hover:bg-light hover:text-sky-700 disabled:text-light disabled:bg-lightGray disabled:hover:bg-light disabled:hover:text-lightGray w-40 border-4"
+              "border-light mt-0 mb-0 mx-1 text-light bg-sky-700 hover:bg-light hover:text-sky-700 disabled:text-light disabled:bg-lightGray disabled:hover:bg-light disabled:hover:text-lightGray w-36 border-4"
             }
           >
             {loading ? <Loading className="w-8 h-8" /> : "تسجيل الخروج"}
@@ -138,6 +150,7 @@ const Dashboard = () => {
         </ProSidebar>
         <Outlet />
       </div>
+      <MyAccount isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 };
