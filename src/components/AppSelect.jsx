@@ -12,7 +12,7 @@ export default function AppSelect({ name, label, options }) {
   }, []);
 
   return (
-    <div className="flex flex-col text-dark text-lg mt-5 mb-1">
+    <div className="flex flex-col text-dark text-xs lg:text-sm mt-5 mb-1">
       <label>{label}</label>
       <Listbox value={values[name]} onChange={handleChange(name)}>
         <div className="relative mt-1">
@@ -31,7 +31,7 @@ export default function AppSelect({ name, label, options }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute w-11/12 py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute w-11/12 py-1 mt-1 overflow-auto text-xs lg:text-sm bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {options.map((option, personIdx) => (
                 <Listbox.Option
                   key={personIdx}

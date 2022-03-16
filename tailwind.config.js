@@ -29,6 +29,9 @@ module.exports = {
         doctor: "url('./assets/doctor.jpg')",
       },
     },
+    fontFamily: {
+      "droid-kufi": ["DroidArabicKufiRegular", "sans-serif"],
+    },
   },
   plugins: [],
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
@@ -10,6 +10,7 @@ import AppSubmitButton from "../AppSubmitButton";
 import AppButton from "../AppButton";
 import AppCheckBox from "../AppCheckBox";
 import AppSecondCheckBox from "../AppHospitalCheckBox";
+import WindowContext from "../../contexts/windowContext";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("الرجاء إدخال اسم المشفى"),
@@ -50,6 +51,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const HospitalForm = () => {
+  const windowContext = useContext(WindowContext);
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
@@ -143,7 +145,7 @@ const HospitalForm = () => {
   };
 
   return (
-    <div className="space-y-3 flex flex-col justify-start pt-10 pb-24 grow px-32 xl:px-40 overflow-y-scroll">
+    <div className="space-y-1 lg:space-y-3 flex flex-col justify-start pt-5 lg:pt-10 pb-24 grow px-3 lg:px-40 overflow-y-scroll">
       <AppForm
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -151,8 +153,10 @@ const HospitalForm = () => {
           isCreate ? handleCreate(values) : handleEdit(values)
         }
       >
-        <span className="text-xl font-semibold">معلومات المشفى</span>
-        <div className="grid grid-cols-3">
+        <span className="text-sm lg:text-base font-semibold">
+          معلومات المشفى
+        </span>
+        <div className="grid grid-cols-1 lg:grid-cols-3">
           <AppInput
             id={"name"}
             placeholder={"اسم المشفى"}
@@ -167,10 +171,12 @@ const HospitalForm = () => {
           />
 
           <div className="flex flex-col justify-start items-start mt-4 grow w-1/12">
-            <span className="mx-2 text-dark my-2">النوع:</span>
+            <span className="mx-2 text-sm lg:text-base text-dark my-2">
+              النوع:
+            </span>
             <div
               role="group"
-              className="flex text-lg items-center justify-center"
+              className="flex text-xs lg:text-sm items-center justify-center"
             >
               <AppFormRadioButton
                 id={"public"}
@@ -187,7 +193,7 @@ const HospitalForm = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-1 lg:grid-cols-3">
           <AppInput
             id={"emergencyBeds"}
             placeholder={"عدد أسرة المشفى للقبول الإسعافي"}
@@ -210,11 +216,19 @@ const HospitalForm = () => {
             containerClassName="grow"
           />
         </div>
-        <span className="text-xl pt-10 font-semibold">معلومات الموظفين</span>
-        <span className="text-lg font-medium">
+        <span className="text-sm lg:text-base pt-10 font-semibold">
+          معلومات الموظفين
+        </span>
+        <span className="text-xs lg:text-sm font-medium pt-2">
           الموظف المسؤول عن إحصائية المشفى:
         </span>
-        <div className={`grid ${isCreate ? "grid-cols-3" : "grid-cols-4"}`}>
+        <div
+          className={`grid ${
+            isCreate
+              ? "grid-cols-1 lg:grid-cols-3"
+              : "grid-cols-1 lg:grid-cols-4"
+          }`}
+        >
           <AppInput
             id={"hospitalAnalystName"}
             placeholder={"الإسم"}
@@ -242,10 +256,16 @@ const HospitalForm = () => {
           )}
         </div>
 
-        <span className="text-base font-medium">
+        <span className="text-xs lg:text-sm font-medium pt-4">
           الموظف المسؤول عن إحصائية المرضى:
         </span>
-        <div className={`grid ${isCreate ? "grid-cols-3" : "grid-cols-4"}`}>
+        <div
+          className={`grid ${
+            isCreate
+              ? "grid-cols-1 lg:grid-cols-3"
+              : "grid-cols-1 lg:grid-cols-4"
+          }`}
+        >
           <AppInput
             id={"patientAnalystName"}
             placeholder={"الإسم"}
@@ -273,7 +293,7 @@ const HospitalForm = () => {
           )}
         </div>
 
-        <div className="grid grid-cols-3 gap-10 justify-between">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-10 justify-between">
           <AppButton
             type="button"
             onClick={() => navigate(-1)}
@@ -281,7 +301,7 @@ const HospitalForm = () => {
           >
             إلغاء
           </AppButton>
-          <span></span>
+          {windowContext.width >= 1024 && <span></span>}
           <AppSubmitButton isLoading={isLoading}>
             {isCreate ? <span>إضافة</span> : <span>تعديل</span>}
           </AppSubmitButton>

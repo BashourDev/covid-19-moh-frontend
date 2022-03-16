@@ -30,7 +30,7 @@ const AppInput = ({
     <div className={`flex flex-col ${containerClassName}`}>
       <label
         htmlFor={id}
-        className="text-dark text-lg focus:text-primary mt-5 mb-1 mx-1 focus-within:text-primary"
+        className="text-dark text-xs lg:text-sm focus:text-primary mt-5 mb-1 mx-1 focus-within:text-primary"
       >
         {label}
       </label>
@@ -48,12 +48,12 @@ const AppInput = ({
           placeholder={placeholder}
           onChange={handleChange(id)}
           onBlur={(e) => setFieldTouched(id)}
-          className="border-0 outline-none px-2 w-full bg-inherit"
+          className="border-0 outline-none px-2 w-full bg-inherit text-xs lg:text-sm"
           disabled={isDisabled()}
         />
       </div>
       {touched[id] && errors[id] && (
-        <p className="text-danger mt-1">{errors[id]}</p>
+        <p className="text-danger mt-1 text-xs lg:text-sm">{errors[id]}</p>
       )}
     </div>
   );

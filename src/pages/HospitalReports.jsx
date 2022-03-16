@@ -46,19 +46,19 @@ const HospitalReports = () => {
 
   return (
     <div className="w-full py-5">
-      <div className="flex bg-white w-full px-32 xl:px-40 py-2 justify-between border-y-[0.1px] border-lightGray/50">
-        <span className="flex items-center text-xl font-bold text-dark">
+      <div className="flex bg-white w-full px-3 xl:px-40 py-2 justify-evenly lg:justify-between border-y-[0.1px] border-lightGray/50">
+        <span className="flex items-center text-sm lg:text-base font-bold text-dark">
           تقارير المشفى
         </span>
         <Link
           to={"/dashboard/monitor-hospital/add"}
-          className="transition text-xl flex justify-center items-center px-3 py-2 border-4 rounded-full border-primary text-primary hover:text-white hover:bg-primary w-44"
+          className="transition h-8 lg:h-11 text-xs lg:text-sm flex justify-center items-center ml-5 lg:ml-0 px-3 py-1 lg:py-2 border-4 rounded-full border-primary text-primary hover:text-white hover:bg-primary w-32 lg:w-44"
         >
           <MdAdd />
           إضافة تقرير
         </Link>
       </div>
-      <div className="flex flex-col px-16">
+      <div className="flex flex-col px-3 lg:px-16">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
             <div className="overflow-y-scroll max-h-[67vh] 2xl:max-h-[70vh]">
@@ -70,55 +70,55 @@ const HospitalReports = () => {
                     <tr>
                       <th
                         scope="col"
-                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       >
                         الأسرة المتوفرة للقبول الإسعافي
                       </th>
                       <th
                         scope="col"
-                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       >
                         الأسرة المشغولة في القبول الإسعافي
                       </th>
                       <th
                         scope="col"
-                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       >
                         الأسرة المتوفرة للعناية
                       </th>
                       <th
                         scope="col"
-                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       >
                         الأسرة المشغولة في العناية
                       </th>
                       <th
                         scope="col"
-                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       >
                         أجهزة التنفس الآلي المتوفرة
                       </th>
                       <th
                         scope="col"
-                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       >
                         أجهزة التنفس الآلي المشغولة
                       </th>
                       <th
                         scope="col"
-                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       >
                         مضُاف من قِبَل
                       </th>
                       <th
                         scope="col"
-                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       >
                         آخر تحديث
                       </th>
                       <th
                         scope="col"
-                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       ></th>
                     </tr>
                   </thead>
@@ -128,31 +128,31 @@ const HospitalReports = () => {
                         key={i}
                         className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
                       >
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {report.emergencyBeds}
                         </td>
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {report.emergencyReservedBeds}
                         </td>
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {report.intensiveCareBeds}
                         </td>
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {report.intensiveCareReservedBeds}
                         </td>
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {report.ventilators}
                         </td>
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {report.reservedVentilators}
                         </td>
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {report.hospital_analyst.name}
                         </td>
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {moment(report.updated_at).calendar()}
                         </td>
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <td className="text-xs lg:text-sm text-gray-900 font-light pr-2 pl-16 lg:px-6 py-3 lg:py-4 whitespace-nowrap flex items-center">
                           <MdDelete
                             onClick={() => handleDelete(report.id)}
                             className="text-danger text-xl cursor-pointer"

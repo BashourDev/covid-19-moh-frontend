@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import api from "../../api/api";
+import WindowContext from "../../contexts/windowContext";
 import AppButton from "../AppButton";
 import AppForm from "../AppForm";
 import AppInput from "../AppInput";
@@ -21,6 +22,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const HospitalReportForm = () => {
+  const windowContext = useContext(WindowContext);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   let initialValues = {
@@ -47,13 +49,13 @@ const HospitalReportForm = () => {
   };
 
   return (
-    <div className="space-y-3 flex flex-col justify-start pt-20 grow px-32 xl:px-40">
+    <div className="space-y-1 lg:space-y-3 flex flex-col justify-start pt-5 lg:pt-10 grow px-3 lg:px-40">
       <AppForm
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values) => handleCreate(values)}
       >
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-1 lg:grid-cols-3">
           <AppInput
             id={"emergencyReservedBeds"}
             placeholder={"الأسرة المشغولة في القبول الإسعافي"}
@@ -77,7 +79,7 @@ const HospitalReportForm = () => {
           />
         </div>
 
-        <div className="grid grid-cols-3 gap-10 justify-between">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-10 justify-between">
           <AppButton
             type="button"
             onClick={() => navigate(-1)}
@@ -85,7 +87,7 @@ const HospitalReportForm = () => {
           >
             إلغاء
           </AppButton>
-          <span></span>
+          {windowContext.width >= 1024 && <span></span>}
           <AppSubmitButton isLoading={isLoading}>إضافة</AppSubmitButton>
         </div>
       </AppForm>

@@ -38,6 +38,7 @@ const MyAccount = ({ isOpen, setIsOpen }) => {
   const userContext = useContext(UserContext);
 
   const EditAccount = () => {
+    const [isUpdating, setIsUpdating] = useState(false);
     let initialValues = {
       name: userContext.user.name,
       username: userContext.user.username,
@@ -48,6 +49,7 @@ const MyAccount = ({ isOpen, setIsOpen }) => {
     };
 
     const handleSubmit = async (values) => {
+      setIsUpdating(true);
       try {
         const res = await api.put("/update-current-user", values);
         console.log(res);
@@ -61,6 +63,7 @@ const MyAccount = ({ isOpen, setIsOpen }) => {
           setErrorMessage("اسم المستخدم محجوز, الرجاء استخدام اسم آخر");
         }
       }
+      setIsUpdating(false);
     };
 
     return (
@@ -119,7 +122,7 @@ const MyAccount = ({ isOpen, setIsOpen }) => {
           >
             إلغاء
           </AppButton>
-          <AppSubmitButton>تعديل</AppSubmitButton>
+          <AppSubmitButton isLoading={isUpdating}>تعديل</AppSubmitButton>
         </div>
       </AppForm>
     );

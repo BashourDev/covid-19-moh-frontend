@@ -12,6 +12,7 @@ import { setUser } from "../api/user";
 import { setToken } from "../api/token";
 import UserContext from "../contexts/userContext";
 import axios from "axios";
+import WindowContext from "../contexts/windowContext";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required("اسم المستخدم مطلوب"),
@@ -21,6 +22,7 @@ const validationSchema = Yup.object().shape({
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const userContext = useContext(UserContext);
+  const windowContext = useContext(WindowContext);
   const navigate = useNavigate();
   const initialValues = {
     username: "",
@@ -61,12 +63,19 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen w-screen flex justify-center items-center  bg-doctor bg-[#111311] bg-blend-overlay bg-no-repeat">
-      <div className="w-3/6 h-2/3 bg-white shadow shadow-gray flex flex-col items-center">
-        <h2 className="text-dark my-4 text-3xl">تسجيل الدخول</h2>
+    <div className="h-screen w-screen overflow-clip flex justify-center items-center  bg-doctor bg-[#111311] bg-blend-overlay bg-no-repeat">
+      <div className="w-5/6 h-2/4 lg:w-3/6 lg:h-2/3 bg-white shadow shadow-gray flex flex-col items-center">
+        <h2 className="text-dark my-4 text-lg lg:text-xl">تسجيل الدخول</h2>
         <div className="grid grid-cols-2 px-7 2xl:px-14">
-          <CovidVaccine className="w-72 h-80 2xl:w-96 2xl:h-110" />
-          <div dir="rtl" className="flex flex-col justify-center relative">
+          {windowContext.width > 900 && (
+            <CovidVaccine className="w-72 h-80 2xl:w-96 2xl:h-110" />
+          )}
+          <div
+            dir="rtl"
+            className={`flex flex-col justify-center relative ${
+              windowContext.width > 900 ? "col-span-1" : "col-span-2"
+            }`}
+          >
             <AppForm
               initialValues={initialValues}
               validationSchema={validationSchema}

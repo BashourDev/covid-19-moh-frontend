@@ -42,13 +42,13 @@ const FirstStepPatientForm = ({
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-1 lg:space-y-3 overflow-y-auto">
       <AppForm
         initialValues={initialValues}
         validationSchema={Yup.object().shape({})}
         onSubmit={(values) => handleSubmit(values)}
       >
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-1 lg:grid-cols-3">
           <AppInput
             id={"doctor"}
             placeholder={"اسم الطبيب"}
@@ -63,10 +63,12 @@ const FirstStepPatientForm = ({
           />
 
           <div className="flex flex-col justify-start items-start mt-4 grow w-1/12">
-            <span className="mx-2 text-dark my-2">الجنس:</span>
+            <span className="mx-2 text-dark my-2 text-xs lg:text-sm">
+              الجنس:
+            </span>
             <div
               role="group"
-              className="flex text-lg items-center justify-center"
+              className="flex text-xs lg:text-sm items-center justify-center"
             >
               <AppFormRadioButton
                 id={"male"}
@@ -83,7 +85,7 @@ const FirstStepPatientForm = ({
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-1 lg:grid-cols-3">
           <AppInput
             id={"birthday"}
             placeholder={"تاريخ الولادة"}
@@ -104,7 +106,7 @@ const FirstStepPatientForm = ({
             containerClassName="grow"
           />
         </div>
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-1 lg:grid-cols-3">
           <AppInput
             id={"landline"}
             placeholder={"رقم الهاتف (المنزل)"}
@@ -129,7 +131,7 @@ const FirstStepPatientForm = ({
             options={bloodTypes}
           />
         </div>
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-1 lg:grid-cols-3">
           <AppInput
             id={"height"}
             placeholder={"الطول"}
@@ -143,7 +145,7 @@ const FirstStepPatientForm = ({
             containerClassName="grow"
           />
         </div>
-        <div className="grid grid-cols-3 gap-10">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-10">
           <AppButton
             type="button"
             onClick={() => navigate(-1)}

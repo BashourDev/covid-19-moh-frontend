@@ -22,7 +22,7 @@ const AppFormRadioButton = ({ id, name, value, text, checked = false }) => {
           onChange={handleChange(name)}
           checked={isChecked()}
         />
-        <div className="transition duration-300 px-4 h-9 cursor-pointer rounded-full flex items-center justify-center text-dark peer-checked:bg-primary peer-checked:text-white">
+        <div className="transition duration-300 px-4 h-7 lg:h-9 text-xs lg:text-sm cursor-pointer rounded-full flex items-center justify-center text-dark peer-checked:bg-primary peer-checked:text-white">
           {text}
         </div>
       </label>

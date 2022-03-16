@@ -4,7 +4,7 @@ import React from "react";
 const AppCheckBox = ({ id, name, text, disabledValue, onClick }) => {
   const { handleChange, values } = useFormikContext();
   return (
-    <label className="flex items-center mt-8">
+    <label className="flex items-center mt-8 text-xs lg:text-sm">
       <input
         id={id}
         onClick={handleChange(name)}

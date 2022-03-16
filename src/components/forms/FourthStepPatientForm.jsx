@@ -34,7 +34,7 @@ const FourthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
   };
 
   return (
-    <div className="space-y-3 overflow-y-scroll pb-32">
+    <div className="space-y-1 lg:space-y-3 overflow-y-scroll pb-32">
       <AppForm
         initialValues={initialValues}
         validationSchema={Yup.object().shape({})}
@@ -72,8 +72,8 @@ const FourthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             disabledValue={"release"}
           />
         </div>
-        <div className="grid grid-cols-8">
-          <span className="text-lg flex items-center mt-6 col-span-1">
+        <div className="grid grid-cols-6 lg:grid-cols-8">
+          <span className="text-xs lg:text-sm flex items-center mt-6 col-span-6 lg:col-span-1">
             العلامات الحيوية:
           </span>
           <AppInput
@@ -133,7 +133,7 @@ const FourthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
           />
         </div>
 
-        <div className="grid grid-cols-3 gap-10">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10">
           <AppButton
             type="button"
             onClick={() => navigate(-1)}
@@ -151,6 +151,7 @@ const FourthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
           <AppSubmitButton
             disabled={initialValues.id === undefined}
             isLoading={isLoading}
+            className={"col-span-2 lg:col-span-1 mt-0 lg:mt-8"}
           >
             إضافة و الذهاب للخطوة التالية
           </AppSubmitButton>

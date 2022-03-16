@@ -35,18 +35,18 @@ const ThirdStepPatientForm = ({ initialValues, setPatient, setStep }) => {
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-1 lg:space-y-3 overflow-y-auto pb-32">
       <AppForm
         initialValues={initialValues}
         validationSchema={Yup.object().shape({})}
         onSubmit={(values) => handleSubmit(values)}
       >
-        <div className="grid grid-cols-5">
+        <div className="grid grid-cols-3 lg:grid-cols-5">
           <AppInput
             id={"treatmentCourse"}
             placeholder={"الكورس العلاجي المعتمد"}
             label={"الكورس العلاجي المعتمد:"}
-            containerClassName="grow col-span-2"
+            containerClassName="grow col-span-3 lg:col-span-2"
           />
           <AppCheckBox
             id={"givenAntivirus"}
@@ -62,9 +62,9 @@ const ThirdStepPatientForm = ({ initialValues, setPatient, setStep }) => {
           />
         </div>
 
-        <div className="grid grid-cols-5">
-          <div className="flex justify-start items-center mt-6 grow">
-            <span className="mx-2 text-lg my-2">نتيجة المسحة:</span>
+        <div className="grid grid-cols-3 lg:grid-cols-5">
+          <div className="flex justify-start items-center col-span-3 lg:col-span-1 mt-6 grow">
+            <span className="mx-2 text-xs lg:text-sm my-2">نتيجة المسحة:</span>
             <div
               role="group"
               className="flex text-lg items-center justify-center"
@@ -92,26 +92,28 @@ const ThirdStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             id={"ventilationDuration"}
             placeholder={"في حال التنبيب ما هي مدة الوضع على المنفسة"}
             label={"ما هي مدة الوضع على المنفسة:"}
-            containerClassName="grow col-span-3"
+            containerClassName="grow col-span-2"
             disabledValue={"requiredVentilation"}
           />
         </div>
-        <div className="grid grid-cols-5">
-          <span className="text-lg flex items-center mt-6">
+        <div className="grid grid-cols-1 lg:grid-cols-5">
+          <span className="text-xs lg:text-sm flex items-center mt-6">
             التطور في المشفى:
           </span>
-          <AppCheckBox
-            id={"clinicalImprovement"}
-            name={"clinicalImprovement"}
-            text={"تحسن في الحالة السريرية"}
-          />
-          <AppInput
-            id={"daysOfFever"}
-            placeholder={"عدد أيام الترفع الحروري"}
-            label={"عدد أيام الترفع الحروري:"}
-            type={"number"}
-            containerClassName="grow col-span-3"
-          />
+          <div className="grid grid-cols-1 lg:grid-cols-3 lg:col-span-2">
+            <AppCheckBox
+              id={"clinicalImprovement"}
+              name={"clinicalImprovement"}
+              text={"تحسن في الحالة السريرية"}
+            />
+            <AppInput
+              id={"daysOfFever"}
+              placeholder={"عدد أيام الترفع الحروري"}
+              label={"عدد أيام الترفع الحروري:"}
+              type={"number"}
+              containerClassName="grow col-span-1 lg:col-span-2"
+            />
+          </div>
         </div>
         <div className="grid">
           <AppInput
@@ -122,7 +124,7 @@ const ThirdStepPatientForm = ({ initialValues, setPatient, setStep }) => {
           />
         </div>
 
-        <div className="grid grid-cols-3 gap-10">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10">
           <AppButton
             type="button"
             onClick={() => navigate(-1)}
@@ -140,6 +142,7 @@ const ThirdStepPatientForm = ({ initialValues, setPatient, setStep }) => {
           <AppSubmitButton
             disabled={initialValues.id === undefined}
             isLoading={isLoading}
+            className={"col-span-2 lg:col-span-1 mt-0 lg:mt-8"}
           >
             إضافة و الذهاب للخطوة التالية
           </AppSubmitButton>

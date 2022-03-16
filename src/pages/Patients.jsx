@@ -68,9 +68,9 @@ const Patients = () => {
 
   return (
     <div className="w-full py-5">
-      <div className="flex bg-white w-full px-32 xl:px-40 py-2 justify-between border-y-[0.1px] border-lightGray/50">
+      <div className="flex flex-col lg:flex-row bg-white w-full px-3 xl:px-40 py-2 justify-between border-y-[0.1px] border-lightGray/50">
         <div className="flex space-x-2">
-          <span className="flex items-center text-xl font-bold text-dark ml-7">
+          <span className="flex items-center text-sm lg:text-base font-bold text-dark ml-7">
             سجلات المرضى
           </span>
           <SearchInput
@@ -78,18 +78,18 @@ const Patients = () => {
             onChange={setSearchText}
             placeholder={"بحث"}
             Icon={MdSearch}
-            className={"mt-1"}
+            className={"lg:mt-2 w-36 lg:w-60"}
           />
         </div>
         <Link
           to={"add"}
-          className="transition text-xl flex justify-center items-center px-3 py-2 border-4 rounded-full border-primary text-primary hover:text-white hover:bg-primary w-44"
+          className="transition mt-2 lg:mt-0 h-8 lg:h-11 text-xs lg:text-sm flex justify-center items-center px-3 py-1 lg:py-2 border-4 rounded-full border-primary text-primary hover:text-white hover:bg-primary w-44"
         >
           <MdAdd />
           إضافة مريض
         </Link>
       </div>
-      <div className="flex flex-col px-16">
+      <div className="flex flex-col px-3 lg:px-16">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
             <div className="overflow-y-scroll max-h-[67vh] 2xl:max-h-[70vh]">
@@ -101,43 +101,43 @@ const Patients = () => {
                     <tr>
                       <th
                         scope="col"
-                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       >
                         الإسم
                       </th>
                       <th
                         scope="col"
-                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       >
                         العنوان
                       </th>
                       <th
                         scope="col"
-                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       >
                         تاريخ الولادة
                       </th>
                       <th
                         scope="col"
-                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       >
                         رقم الهاتف المحمول
                       </th>
                       <th
                         scope="col"
-                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       >
                         مضُاف من قِبَل
                       </th>
                       <th
                         scope="col"
-                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       >
                         آخر تحديث
                       </th>
                       <th
                         scope="col"
-                        className="text-base font-semibold text-gray-900 px-6 py-4 text-right"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       ></th>
                     </tr>
                   </thead>
@@ -147,34 +147,34 @@ const Patients = () => {
                         key={i}
                         className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
                       >
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {patient.name}
                         </td>
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {patient.address}
                         </td>
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {patient.birthday}
                         </td>
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {patient.mobileNumber}
                         </td>
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {patient.patient_analyst.name}
                         </td>
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {moment(patient.updated_at).calendar()}
                         </td>
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap flex">
+                        <td className="text-xs lg:text-sm text-gray-900 font-light pr-2 pl-16 lg:px-6 py-3 lg:py-4 whitespace-nowrap flex items-center">
                           <Link
                             to={`/dashboard/monitor-patients/complete/${patient.id}`}
-                            className="mx-3"
+                            className="mx-2 lg:mx-3"
                           >
                             <MdEdit className="text-info text-xl" />
                           </Link>
                           <MdDelete
                             onClick={() => handleDelete(patient.id)}
-                            className="text-danger text-xl cursor-pointer mx-3"
+                            className="text-danger text-xl cursor-pointer mx-2 lg:mx-3"
                           />
                         </td>
                       </tr>
@@ -182,21 +182,21 @@ const Patients = () => {
                   </tbody>
                 </table>
               )}
+              <ReactPaginate
+                className={"flex self-center my-2 text-xs lg:text-sm"}
+                pageClassName={"border-2 px-2 py-1 rounded-sm mx-1"}
+                activeClassName="text-white border-primary bg-primary"
+                previousClassName="border-2 px-2 py-1 rounded-sm mx-1"
+                nextClassName="border-2 px-2 py-1 rounded-sm mx-1"
+                breakLabel="..."
+                nextLabel="التالي >"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={5}
+                pageCount={pageCount}
+                previousLabel="< السابق"
+                renderOnZeroPageCount={null}
+              />
             </div>
-            <ReactPaginate
-              className={"flex self-center my-2"}
-              pageClassName={"border-2 px-2 py-1 rounded-sm mx-1"}
-              activeClassName="text-white border-primary bg-primary"
-              previousClassName="border-2 px-2 py-1 rounded-sm mx-1"
-              nextClassName="border-2 px-2 py-1 rounded-sm mx-1"
-              breakLabel="..."
-              nextLabel="التالي >"
-              onPageChange={handlePageClick}
-              pageRangeDisplayed={5}
-              pageCount={pageCount}
-              previousLabel="< السابق"
-              renderOnZeroPageCount={null}
-            />
           </div>
         </div>
       </div>

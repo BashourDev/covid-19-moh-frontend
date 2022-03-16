@@ -5,10 +5,10 @@ const StepsButton = ({ type = "button", onClick, text, number, isPassed }) => {
     <button
       type={type}
       onClick={onClick}
-      className="flex flex-col justify-center items-center"
+      className="flex flex-col justify-center items-center text-[8px] lg:text-sm"
     >
       <div
-        className={`w-7 h-7 rounded-full border-2 ${
+        className={`w-4 h-4 lg:w-6 lg:h-6 text-[8px] lg:text-sm rounded-full border-[1px] lg:border-2 ${
           isPassed ? "border-primary text-primary" : "border-dark text-dark"
         }`}
       >

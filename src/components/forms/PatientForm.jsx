@@ -152,9 +152,9 @@ const PatientForm = () => {
   }, [patient]);
 
   return (
-    <div className="flex flex-col justify-start grow px-32 xl:px-40">
+    <div className="flex flex-col justify-start grow px-3 lg:px-40">
       {/* steps */}
-      <div className="flex items-center mt-10 gap-8">
+      <div className="flex items-center mt-5 lg:mt-10 gap-2 lg:gap-8">
         <StepsButton
           onClick={() => setStep(1)}
           number={1}

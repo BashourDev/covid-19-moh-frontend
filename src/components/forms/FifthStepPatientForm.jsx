@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import api from "../../api/api";
+import WindowContext from "../../contexts/windowContext";
 import AppButton from "../AppButton";
 import AppCheckBox from "../AppCheckBox";
 import AppForm from "../AppForm";
@@ -11,6 +12,7 @@ import AppSubmitButton from "../AppSubmitButton";
 
 const FifthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const windowContext = useContext(WindowContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (values) => {
@@ -57,7 +59,7 @@ const FifthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
           />
         </div>
 
-        <div className="grid grid-cols-5">
+        <div className="grid grid-cols-2 lg:grid-cols-5">
           <AppCheckBox id={"dyspnea"} name={"dyspnea"} text={"زلة نفسية"} />
           <AppCheckBox
             id={"laborOnLightOrMediumEfforts"}
@@ -74,7 +76,7 @@ const FifthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
           />
         </div>
 
-        <div className="grid grid-cols-3 gap-10 justify-between w-11/12">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-10 justify-between w-11/12">
           <AppButton
             type="button"
             onClick={() => navigate(-1)}
@@ -82,7 +84,7 @@ const FifthStepPatientForm = ({ initialValues, setPatient, setStep }) => {
           >
             إلغاء
           </AppButton>
-          <span></span>
+          {windowContext.width >= 1024 && <span></span>}
           <AppSubmitButton
             disabled={initialValues.id === undefined}
             isLoading={isLoading}

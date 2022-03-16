@@ -34,13 +34,13 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
   };
 
   return (
-    <div className="space-y-3 overflow-y-scroll pb-32">
+    <div className="space-y-1 lg:space-y-3 overflow-y-scroll pb-32">
       <AppForm
         initialValues={initialValues}
         validationSchema={Yup.object().shape({})}
         onSubmit={(values) => handleSubmit(values)}
       >
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
           <AppInput
             id={"symptomDaysBeforeAdmission"}
             placeholder={"منذ متى بدأت الأعراض قبل الدخول إلى المشفى"}
@@ -54,7 +54,7 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             containerClassName="grow"
           />
         </div>
-        <div className="grid grid-cols-9">
+        <div className="grid grid-cols-3 lg:grid-cols-9">
           <AppCheckBox id={"hasFever"} name={"hasFever"} text={"ترفع حروري"} />
           <AppInput
             id={"temperature"}
@@ -204,7 +204,7 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             disabledValue={"arterialHypertension"}
           />
         </div>
-        <div className="grid grid-cols-8">
+        <div className="grid grid-cols-3 lg:grid-cols-8">
           <AppCheckBox id={"diabetes"} name={"diabetes"} text={"السكري"} />
           <AppInput
             id={"diabetesOralTreatment"}
@@ -230,11 +230,11 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             id={"diabetesMixedOralAndInsulinTreatment"}
             placeholder={"علاج مختلط فموي + انسولين"}
             label={"علاج مختلط:"}
-            containerClassName="grow col-span-2"
+            containerClassName="grow col-span-3 lg:col-span-2"
             disabledValue={"diabetes"}
           />
         </div>
-        <div className="grid grid-cols-5">
+        <div className="grid grid-cols-3 lg:grid-cols-5">
           <AppCheckBox
             id={"highCholesterolAndTriglycerides"}
             name={"highCholesterolAndTriglycerides"}
@@ -244,11 +244,11 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             id={"cholesterolAndTriglycerides"}
             placeholder={"الأدوية"}
             label={"الأدوية:"}
-            containerClassName="grow col-span-4"
+            containerClassName="grow col-span-2 lg:col-span-4"
             disabledValue={"highCholesterolAndTriglycerides"}
           />
         </div>
-        <div className="grid grid-cols-6">
+        <div className="grid grid-cols-3 lg:grid-cols-6">
           <AppCheckBox
             id={"renalInsufficiency"}
             name={"renalInsufficiency"}
@@ -261,7 +261,7 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             disabledValue={"renalInsufficiency"}
           />
         </div>
-        <div className="grid grid-cols-5">
+        <div className="grid grid-cols-3 lg:grid-cols-5">
           <AppCheckBox
             id={"hasAntecedentsOfCoronalMetaphorsOrExpansions"}
             name={"hasAntecedentsOfCoronalMetaphorsOrExpansions"}
@@ -271,11 +271,11 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             id={"antecedentsOfCoronalMetaphorsOrExpansionsMedications"}
             placeholder={"الأدوية"}
             label={"الأدوية:"}
-            containerClassName="grow col-span-4"
+            containerClassName="grow col-span-2 lg:col-span-4"
             disabledValue={"hasAntecedentsOfCoronalMetaphorsOrExpansions"}
           />
         </div>
-        <div className="grid grid-cols-5">
+        <div className="grid grid-cols-3 lg:grid-cols-5">
           <AppCheckBox
             id={"BreathingDifficultiesOrAsthma"}
             name={"BreathingDifficultiesOrAsthma"}
@@ -292,10 +292,10 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             id={"otherRespiratoryProblems"}
             placeholder={"أمراض تنفسية أخرى"}
             label={"أمراض تنفسية أخرى:"}
-            containerClassName="grow col-span-2"
+            containerClassName="grow col-span-3 lg:col-span-2"
           />
         </div>
-        <div className="grid grid-cols-5">
+        <div className="grid grid-cols-4 lg:grid-cols-5">
           <AppCheckBox
             id={"arthritis"}
             name={"arthritis"}
@@ -305,11 +305,11 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             id={"arthritisMedications"}
             placeholder={"الأدوية"}
             label={"الأدوية:"}
-            containerClassName="grow col-span-4"
+            containerClassName="grow col-span-3 lg:col-span-4"
             disabledValue={"arthritis"}
           />
         </div>
-        <div className="grid grid-cols-5">
+        <div className="grid grid-cols-4 lg:grid-cols-5">
           <AppCheckBox
             id={"osteoporosis"}
             name={"osteoporosis"}
@@ -319,11 +319,11 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             id={"osteoporosisMedications"}
             placeholder={"الأدوية"}
             label={"الأدوية:"}
-            containerClassName="grow col-span-4"
+            containerClassName="grow col-span-3 lg:col-span-4"
             disabledValue={"osteoporosis"}
           />
         </div>
-        <div className="grid grid-cols-5">
+        <div className="grid grid-cols-4 lg:grid-cols-5">
           <AppCheckBox
             id={"hasLiverDisease"}
             name={"hasLiverDisease"}
@@ -333,11 +333,11 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             id={"liverDisease"}
             placeholder={"اذكر أمراض الكبد"}
             label={"أمراض في الكبد:"}
-            containerClassName="grow col-span-4"
+            containerClassName="grow col-span-3 lg:col-span-4"
             disabledValue={"hasLiverDisease"}
           />
         </div>
-        <div className="grid grid-cols-5">
+        <div className="grid grid-cols-4 lg:grid-cols-5">
           <AppCheckBox
             id={"hasDepressionOrAnxiety"}
             name={"hasDepressionOrAnxiety"}
@@ -347,11 +347,11 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             id={"depressionOrAnxietyMedications"}
             placeholder={"أدوية الإكتئاب أو القلق"}
             label={"الأدوية:"}
-            containerClassName="grow col-span-4"
+            containerClassName="grow col-span-3 lg:col-span-4"
             disabledValue={"hasDepressionOrAnxiety"}
           />
         </div>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
           <AppInput
             id={"otherDiseases"}
             placeholder={"أمراض أخرى غير مذكورة أعلاه"}
@@ -365,7 +365,7 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             containerClassName="grow"
           />
         </div>
-        <div className="grid grid-cols-5">
+        <div className="grid grid-cols-4 lg:grid-cols-5">
           <AppCheckBox
             id={"isSmoker"}
             name={"isSmoker"}
@@ -375,11 +375,11 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             id={"smokingQuantityAndDuration"}
             placeholder={"المدة / الكمية للتدخين"}
             label={"مدة و كمية التدخين:"}
-            containerClassName="grow col-span-4"
+            containerClassName="grow col-span-3 lg:col-span-4"
             disabledValue={"isSmoker"}
           />
         </div>
-        <div className="grid grid-cols-5">
+        <div className="grid grid-cols-4 lg:grid-cols-5">
           <AppCheckBox
             id={"smokingQuitter"}
             name={"smokingQuitter"}
@@ -389,11 +389,11 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             id={"smokingQuitterQuantityAndDuration"}
             placeholder={"المدة / الكمية للإقلاع"}
             label={"المدة و الكمية:"}
-            containerClassName="grow col-span-4"
+            containerClassName="grow col-span-3 lg:col-span-4"
             disabledValue={"smokingQuitter"}
           />
         </div>
-        <div className="grid grid-cols-6">
+        <div className="grid grid-cols-2 lg:grid-cols-6">
           <AppCheckBox
             id={"privateHookah"}
             name={"privateHookah"}
@@ -405,7 +405,7 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             text={"تدخين أركيلة في المقاهي"}
           />
         </div>
-        <div className="grid grid-cols-6">
+        <div className="grid grid-cols-2 lg:grid-cols-6">
           <AppCheckBox id={"alcoholic"} name={"alcoholic"} text={"الكحول"} />
           <AppCheckBox
             id={"hasDiet"}
@@ -416,11 +416,11 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             id={"diet"}
             placeholder={"ما هو النظام الغذائي"}
             label={"النظام الغذائي:"}
-            containerClassName="grow col-span-4"
+            containerClassName="grow col-span-2 lg:col-span-4"
             disabledValue={"hasDiet"}
           />
         </div>
-        <div className="grid grid-cols-5">
+        <div className="grid grid-cols-3 lg:grid-cols-5">
           <AppCheckBox
             id={"physicalSports"}
             name={"physicalSports"}
@@ -437,29 +437,32 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             id={"physicalSportsPace"}
             placeholder={"بأية وتيرة؟"}
             label={"بأية وتيرة:"}
-            containerClassName="grow col-span-2"
+            containerClassName="grow col-span-3 lg:col-span-2"
             disabledValue={"physicalSports"}
           />
         </div>
-        <div className="grid grid-cols-5">
-          <span className="text-lg col-span-2 flex items-end">
+
+        <div className="grid grid-cols-3 lg:grid-cols-5">
+          <span className="text-xs lg:text-sm col-span-3 lg:col-span-2 flex items-end">
             هل كان المريض يلتزم بالاجراءات الاحترازية قبل الإصابة:
           </span>
-          <AppCheckBox
-            id={"woreFaceMask"}
-            name={"woreFaceMask"}
-            text={"الكمامة"}
-          />
-          <AppCheckBox
-            id={"handWashing"}
-            name={"handWashing"}
-            text={"غسل الأيدي"}
-          />
-          <AppCheckBox
-            id={"avoidCrowds"}
-            name={"avoidCrowds"}
-            text={"الإبتعاد عن التجمعات"}
-          />
+          <div className="flex col-span-3">
+            <AppCheckBox
+              id={"woreFaceMask"}
+              name={"woreFaceMask"}
+              text={"الكمامة"}
+            />
+            <AppCheckBox
+              id={"handWashing"}
+              name={"handWashing"}
+              text={"غسل الأيدي"}
+            />
+            <AppCheckBox
+              id={"avoidCrowds"}
+              name={"avoidCrowds"}
+              text={"الإبتعاد عن التجمعات"}
+            />
+          </div>
         </div>
         <div className="grid grid-cols-2">
           <AppInput
@@ -477,7 +480,7 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             containerClassName="grow"
           />
         </div>
-        <div className="grid grid-cols-3 gap-10">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10">
           <AppButton
             type="button"
             onClick={() => navigate(-1)}
@@ -495,6 +498,7 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
           <AppSubmitButton
             disabled={initialValues.id === undefined}
             isLoading={isLoading}
+            className={"col-span-2 lg:col-span-1 mt-0 lg:mt-8"}
           >
             إضافة و الذهاب للخطوة التالية
           </AppSubmitButton>
