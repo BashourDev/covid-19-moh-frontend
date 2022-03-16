@@ -112,46 +112,59 @@ const Dashboard = () => {
               icon={<AiOutlineMenu />}
               onClick={() => setSideBarCollapsed(!sideBarCollapsed)}
             ></MenuItem>
-            <MenuItem
-              className={`${checkActiveItem("stat") ? "bg-slate-800" : ""}`}
-              icon={<FaRegChartBar />}
-            >
-              <NavLink to={"/dashboard/statistics"}>إحصائيات</NavLink>
-            </MenuItem>
-            <SubMenu title="المشافي" icon={<RiHospitalFill />}>
+            {userContext.user.role === 0 && (
+              <>
+                <MenuItem
+                  className={`${checkActiveItem("stat") ? "bg-slate-800" : ""}`}
+                  icon={<FaRegChartBar />}
+                >
+                  <NavLink to={"/dashboard/statistics"}>إحصائيات</NavLink>
+                </MenuItem>
+                <SubMenu title="المشافي" icon={<RiHospitalFill />}>
+                  <MenuItem
+                    className={`${
+                      checkActiveItem("puh") ? "bg-slate-800" : ""
+                    }`}
+                  >
+                    <NavLink to={"/dashboard/hospitals/public"}>عامة</NavLink>
+                  </MenuItem>
+                  <MenuItem
+                    className={`${
+                      checkActiveItem("prh") ? "bg-slate-800" : ""
+                    }`}
+                  >
+                    <NavLink to={"/dashboard/hospitals/private"}>خاصة</NavLink>
+                  </MenuItem>
+                </SubMenu>
+                <MenuItem
+                  className={`${checkActiveItem("rep") ? "bg-slate-800" : ""}`}
+                  icon={<MdSummarize />}
+                >
+                  <NavLink to={"/dashboard/reports"}>التقارير</NavLink>
+                </MenuItem>
+              </>
+            )}
+
+            {userContext.user.role === 2 && (
               <MenuItem
-                className={`${checkActiveItem("puh") ? "bg-slate-800" : ""}`}
+                className={`${checkActiveItem("mh") ? "bg-slate-800" : ""}`}
+                icon={<MdTrendingUp />}
               >
-                <NavLink to={"/dashboard/hospitals/public"}>عامة</NavLink>
+                <NavLink to={"/dashboard/monitor-hospital"}>
+                  مراقبة المشفى
+                </NavLink>
               </MenuItem>
+            )}
+            {userContext.user.role === 1 && (
               <MenuItem
-                className={`${checkActiveItem("prh") ? "bg-slate-800" : ""}`}
+                className={`${checkActiveItem("mp") ? "bg-slate-800" : ""}`}
+                icon={<FaUserInjured />}
               >
-                <NavLink to={"/dashboard/hospitals/private"}>خاصة</NavLink>
+                <NavLink to={"/dashboard/monitor-patients"}>
+                  مراقبة مرضى كورونا
+                </NavLink>
               </MenuItem>
-            </SubMenu>
-            <MenuItem
-              className={`${checkActiveItem("rep") ? "bg-slate-800" : ""}`}
-              icon={<MdSummarize />}
-            >
-              <NavLink to={"/dashboard/reports"}>التقارير</NavLink>
-            </MenuItem>
-            <MenuItem
-              className={`${checkActiveItem("mh") ? "bg-slate-800" : ""}`}
-              icon={<MdTrendingUp />}
-            >
-              <NavLink to={"/dashboard/monitor-hospital"}>
-                مراقبة المشفى
-              </NavLink>
-            </MenuItem>
-            <MenuItem
-              className={`${checkActiveItem("mp") ? "bg-slate-800" : ""}`}
-              icon={<FaUserInjured />}
-            >
-              <NavLink to={"/dashboard/monitor-patients"}>
-                مراقبة مرضى كورونا
-              </NavLink>
-            </MenuItem>
+            )}
           </Menu>
         </ProSidebar>
         <Outlet />
