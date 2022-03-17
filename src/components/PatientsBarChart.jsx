@@ -162,12 +162,6 @@ const PatientsBarChart = () => {
       assignDeseasedDS(res.data);
 
       setAllHospitals(res.data);
-
-      setSelectedHospital((oldSH) =>
-        Object.keys(oldSH).length === 0
-          ? res.data[0]
-          : res.data.filter((h, i) => h.id === oldSH.id)[0]
-      );
     } catch (error) {
       if (error?.response?.status === 403) {
         toast.error("عذرا لا تملك صلاحية");
@@ -223,12 +217,51 @@ const PatientsBarChart = () => {
     ]);
   };
 
+  const calculateAllHospitalsData = () => {
+    let allHospitalsData = {
+      id: 0,
+      name: "الكل",
+      diseased_patients_count: 0,
+      released_patients_count: 0,
+      resident_patients_count: 0,
+    };
+
+    allHospitals.map((hospital) => {
+      allHospitalsData.diseased_patients_count +=
+        hospital.diseased_patients_count;
+
+      allHospitalsData.released_patients_count +=
+        hospital.released_patients_count;
+
+      allHospitalsData.resident_patients_count +=
+        hospital.resident_patients_count;
+    });
+    return allHospitalsData;
+  };
+
+  const handleDoughnutSelectChange = (value) => {
+    if (value?.name === "الكل") {
+      setSelectedHospital(calculateAllHospitalsData());
+    } else {
+      setSelectedHospital(value);
+    }
+  };
+
   useEffect(() => {
     getData();
   }, []);
 
+  useEffect(() => {
+    let newAllHospitals = [calculateAllHospitalsData(), ...allHospitals];
+    setSelectedHospital((oldSH) =>
+      oldSH === undefined || Object.keys(oldSH).length === 0
+        ? newAllHospitals[0]
+        : newAllHospitals.filter((h, i) => h.id === oldSH.id)[0]
+    );
+  }, [allHospitals]);
+
   return (
-    <div className="w-full py-5 h-full overflow-y-auto">
+    <div className="w-full py-5 pb-16 h-full overflow-y-auto">
       <div className="flex flex-col lg:flex-row bg-white w-full px-3 lg:px-32 py-2  border-y-[0.1px] border-lightGray/50">
         <span className="flex items-center text-sm xl:text-base font-bold text-dark mb-1 lg:mb-0">
           إحصائيات المرضى
@@ -281,7 +314,7 @@ const PatientsBarChart = () => {
           </span>
         )}
       </div>
-      <div className="px-5 grid grid-cols-5 justify-around h-full space-y-5 lg:max-h-[78vh]">
+      <div className="px-5 grid grid-cols-5 justify-around h-full lg:max-h-[78vh]">
         {/* <div className="relative h-full col-span-5 xl:col-span-4"> */}
         <div className="bg-white col-span-5 overflow-y-clip lg:col-span-4 my-5 ring-1 ring-light overflow-x-scroll rounded-lg shadow-lg shadow-lightGray">
           {/* <Bar
@@ -314,8 +347,17 @@ const PatientsBarChart = () => {
         {/* </div> */}
         <div className="relative col-span-5 lg:col-span-1 flex flex-col mx-5 items-center bg-white my-5 ring-1 ring-light rounded-lg shadow-md shadow-lightGray">
           <AppSelectDoughnut
-            handleChange={setSelectedHospital}
-            options={allHospitals}
+            handleChange={handleDoughnutSelectChange}
+            options={[
+              {
+                id: 0,
+                name: "الكل",
+                diseased_patients_count: 0,
+                released_patients_count: 0,
+                resident_patients_count: 0,
+              },
+              ...allHospitals,
+            ]}
             value={selectedHospital?.name}
           />
           <Doughnut

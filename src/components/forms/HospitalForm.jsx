@@ -12,7 +12,21 @@ import AppCheckBox from "../AppCheckBox";
 import AppSecondCheckBox from "../AppHospitalCheckBox";
 import WindowContext from "../../contexts/windowContext";
 
-const validationSchema = Yup.object().shape({
+const validationSchemaCreate = Yup.object().shape({
+  name: Yup.string().required("الرجاء إدخال اسم المشفى"),
+  location: Yup.string().required("الرجاء إدخال عنوان المشفى"),
+  emergencyBeds: Yup.number()
+    .integer("يجب أن يكون عدد صحيح")
+    .required("يجب أن يكون عدد صحيح"),
+  intensiveCareBeds: Yup.number()
+    .integer("يجب أن يكون عدد صحيح")
+    .required("يجب أن يكون عدد صحيح"),
+  ventilators: Yup.number()
+    .integer("يجب أن يكون عدد صحيح")
+    .required("يجب أن يكون عدد صحيح"),
+});
+
+const validationSchemaEdit = Yup.object().shape({
   name: Yup.string().required("الرجاء إدخال اسم المشفى"),
   location: Yup.string().required("الرجاء إدخال عنوان المشفى"),
   emergencyBeds: Yup.number()
@@ -148,7 +162,9 @@ const HospitalForm = () => {
     <div className="space-y-1 lg:space-y-3 flex flex-col justify-start pt-5 lg:pt-10 pb-24 grow px-3 lg:px-40 overflow-y-scroll">
       <AppForm
         initialValues={initialValues}
-        validationSchema={validationSchema}
+        validationSchema={
+          isCreate ? validationSchemaCreate : validationSchemaEdit
+        }
         onSubmit={(values) =>
           isCreate ? handleCreate(values) : handleEdit(values)
         }
@@ -216,82 +232,86 @@ const HospitalForm = () => {
             containerClassName="grow"
           />
         </div>
-        <span className="text-sm lg:text-base pt-10 font-semibold">
-          معلومات الموظفين
-        </span>
-        <span className="text-xs lg:text-sm font-medium pt-2">
-          الموظف المسؤول عن إحصائية المشفى:
-        </span>
-        <div
-          className={`grid ${
-            isCreate
-              ? "grid-cols-1 lg:grid-cols-3"
-              : "grid-cols-1 lg:grid-cols-4"
-          }`}
-        >
-          <AppInput
-            id={"hospitalAnalystName"}
-            placeholder={"الإسم"}
-            label={"الإسم:"}
-            containerClassName="grow"
-          />
-          <AppInput
-            id={"hospitalAnalystUsername"}
-            placeholder={"اسم المستخدم"}
-            label={"اسم المستخدم:"}
-            containerClassName="grow"
-          />
-          <AppInput
-            id={"hospitalAnalystPassword"}
-            placeholder={"كلمة المرور"}
-            label={"كلمة المرور:"}
-            containerClassName="grow"
-          />
-          {!isCreate && (
-            <AppSecondCheckBox
-              id={"updateHAPassword"}
-              name={"updateHAPassword"}
-              text={"تعديل كلمة المرور"}
-            />
-          )}
-        </div>
+        {!isCreate && (
+          <>
+            <span className="text-sm lg:text-base pt-10 font-semibold">
+              معلومات الموظفين
+            </span>
+            <span className="text-xs lg:text-sm font-medium pt-2">
+              الموظف المسؤول عن إحصائية المشفى:
+            </span>
+            <div
+              className={`grid ${
+                isCreate
+                  ? "grid-cols-1 lg:grid-cols-3"
+                  : "grid-cols-1 lg:grid-cols-4"
+              }`}
+            >
+              <AppInput
+                id={"hospitalAnalystName"}
+                placeholder={"الإسم"}
+                label={"الإسم:"}
+                containerClassName="grow"
+              />
+              <AppInput
+                id={"hospitalAnalystUsername"}
+                placeholder={"اسم المستخدم"}
+                label={"اسم المستخدم:"}
+                containerClassName="grow"
+              />
+              <AppInput
+                id={"hospitalAnalystPassword"}
+                placeholder={"كلمة المرور"}
+                label={"كلمة المرور:"}
+                containerClassName="grow"
+              />
+              {!isCreate && (
+                <AppSecondCheckBox
+                  id={"updateHAPassword"}
+                  name={"updateHAPassword"}
+                  text={"تعديل كلمة المرور"}
+                />
+              )}
+            </div>
 
-        <span className="text-xs lg:text-sm font-medium pt-4">
-          الموظف المسؤول عن إحصائية المرضى:
-        </span>
-        <div
-          className={`grid ${
-            isCreate
-              ? "grid-cols-1 lg:grid-cols-3"
-              : "grid-cols-1 lg:grid-cols-4"
-          }`}
-        >
-          <AppInput
-            id={"patientAnalystName"}
-            placeholder={"الإسم"}
-            label={"الإسم:"}
-            containerClassName="grow"
-          />
-          <AppInput
-            id={"patientAnalystUsername"}
-            placeholder={"اسم المستخدم"}
-            label={"اسم المستخدم:"}
-            containerClassName="grow"
-          />
-          <AppInput
-            id={"patientAnalystPassword"}
-            placeholder={"كلمة المرور"}
-            label={"كلمة المرور:"}
-            containerClassName="grow"
-          />
-          {!isCreate && (
-            <AppSecondCheckBox
-              id={"updatePAPassword"}
-              name={"updatePAPassword"}
-              text={"تعديل كلمة المرور"}
-            />
-          )}
-        </div>
+            <span className="text-xs lg:text-sm font-medium pt-4">
+              الموظف المسؤول عن إحصائية المرضى:
+            </span>
+            <div
+              className={`grid ${
+                isCreate
+                  ? "grid-cols-1 lg:grid-cols-3"
+                  : "grid-cols-1 lg:grid-cols-4"
+              }`}
+            >
+              <AppInput
+                id={"patientAnalystName"}
+                placeholder={"الإسم"}
+                label={"الإسم:"}
+                containerClassName="grow"
+              />
+              <AppInput
+                id={"patientAnalystUsername"}
+                placeholder={"اسم المستخدم"}
+                label={"اسم المستخدم:"}
+                containerClassName="grow"
+              />
+              <AppInput
+                id={"patientAnalystPassword"}
+                placeholder={"كلمة المرور"}
+                label={"كلمة المرور:"}
+                containerClassName="grow"
+              />
+              {!isCreate && (
+                <AppSecondCheckBox
+                  id={"updatePAPassword"}
+                  name={"updatePAPassword"}
+                  text={"تعديل كلمة المرور"}
+                />
+              )}
+            </div>
+          </>
+        )}
 
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-10 justify-between">
           <AppButton

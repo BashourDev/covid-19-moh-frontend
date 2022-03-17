@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MdAdd, MdDelete, MdSearch } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { MdEdit } from "react-icons/md";
+import { MdEdit, MdPerson } from "react-icons/md";
 import SearchInput from "../components/SearchInput";
 import api from "../api/api";
 import { toast } from "react-toastify";
@@ -9,6 +9,7 @@ import Loading from "../components/Loading";
 import { conf } from "../components/appConfirm";
 import moment from "../myMoment";
 import ReactPaginate from "react-paginate";
+import HospitalUsers from "../components/HospitalUsers";
 
 const Hospitals = () => {
   const [hospitals, setHospitals] = useState([]);
@@ -16,6 +17,8 @@ const Hospitals = () => {
   const [type, setType] = useState("");
   const [searchText, setSearchText] = useState("");
   const [pageCount, setPageCount] = useState(0);
+  const [isUsersShown, setIsUsersShown] = useState(false);
+  const [selectedHospital, setSelectedHospital] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -89,6 +92,11 @@ const Hospitals = () => {
     } else {
       getHospitals(searchText, "private", event.selected);
     }
+  };
+
+  const showInfo = (id) => {
+    setSelectedHospital(id);
+    setIsUsersShown(true);
   };
 
   return (
@@ -200,6 +208,10 @@ const Hospitals = () => {
                           {moment(hospital.updated_at).calendar()}
                         </td>
                         <td className="text-xs lg:text-sm text-gray-900 font-light pr-2 pl-16 lg:px-6 py-3 lg:py-4 whitespace-nowrap flex items-center">
+                          <MdPerson
+                            onClick={() => showInfo(hospital.id)}
+                            className="text-primary text-lg lg:text-xl cursor-pointer mx-2 lg:mx-3"
+                          />
                           <Link
                             to={`/dashboard/hospitals/edit/${hospital.id}`}
                             className="mx-2 lg:mx-3"
@@ -234,6 +246,11 @@ const Hospitals = () => {
           </div>
         </div>
       </div>
+      <HospitalUsers
+        hid={selectedHospital}
+        isOpen={isUsersShown}
+        setIsOpen={setIsUsersShown}
+      />
     </div>
   );
 };

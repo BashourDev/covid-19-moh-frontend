@@ -7,7 +7,7 @@ export default function AppModal({ isOpen, title, children, onClose }) {
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-50 overflow-y-auto"
+          className="fixed inset-0 z-50 overflow-y-auto font-droid-kufi"
           onClose={onClose}
         >
           <div className="min-h-screen px-4 text-center">
@@ -45,7 +45,7 @@ export default function AppModal({ isOpen, title, children, onClose }) {
               >
                 <Dialog.Title
                   as="h3"
-                  className="text-xl font-medium leading-6 text-gray-900"
+                  className="text-base font-medium leading-6 text-gray-900"
                 >
                   {title}
                 </Dialog.Title>
