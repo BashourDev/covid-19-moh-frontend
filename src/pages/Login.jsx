@@ -13,6 +13,7 @@ import { setToken } from "../api/token";
 import UserContext from "../contexts/userContext";
 import axios from "axios";
 import WindowContext from "../contexts/windowContext";
+import Header from "../components/Header";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required("اسم المستخدم مطلوب"),
@@ -32,20 +33,28 @@ const Login = () => {
   const handleLogin = async (values) => {
     setIsLoading(true);
     try {
-      await api.get(
-        `${process.env.REACT_APP_API_ABSOLUTE}/sanctum/csrf-cookie`
-      );
+      // await api.get(
+      //   `${process.env.REACT_APP_API_ABSOLUTE}/sanctum/csrf-cookie`
+      // );
 
       const res = await api.post("/login", {
         username: values.username,
         password: values.password,
       });
+      if (
+        (res.data.user.role === 1 || res.data.user.role === 2) &&
+        !res.data.user.hospital?.is_activated
+      ) {
+        toast.info("الحساب قيد التفعيل الرجاء الإنتظار");
+        setIsLoading(false);
+        return;
+      }
 
       userContext.setUser(res.data.user);
       setUser(res.data.user);
       setToken(res.data.token);
 
-      if (res.data.user.role === 0) {
+      if (res.data.user.role === 0 || res.data.user.role === 3) {
         navigate("/dashboard/statistics");
       } else if (res.data.user.role === 1) {
         navigate("/dashboard/monitor-patients");
@@ -63,8 +72,9 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen w-screen overflow-clip flex justify-center items-center  bg-doctor bg-[#111311] bg-blend-overlay bg-no-repeat">
-      <div className="w-5/6 h-2/4 lg:w-3/6 lg:h-2/3 bg-white shadow shadow-gray flex flex-col items-center">
+    <div className="h-screen w-screen overflow-clip   bg-doctor bg-[#111311] bg-blend-overlay bg-no-repeat">
+      <Header />
+      <div className="w-5/6 h-2/4 lg:w-3/6 lg:h-2/3 bg-white shadow shadow-gray flex flex-col items-center m-auto mt-16">
         <h2 className="text-dark my-4 text-lg lg:text-xl">تسجيل الدخول</h2>
         <div className="grid grid-cols-2 px-7 2xl:px-14">
           {windowContext.width > 900 && (
@@ -102,7 +112,7 @@ const Login = () => {
           </div>
         </div>
         <div className="h-full w-full flex justify-end items-end">
-          <div className="h-2 bg-primary w-full"></div>
+          <div className="h-2 bg-my-primary w-full"></div>
         </div>
       </div>
     </div>

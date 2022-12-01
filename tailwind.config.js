@@ -8,7 +8,10 @@ module.exports = {
       //old primary 8CC152
       // newer primary color 5ECD81
       // newest primary for sure 00c67f
-      primary: "#2E9CCA",
+      "dark-blue": "#204066",
+      "dark-gold": "#12b48b",
+      "light-gold": "#61ce70",
+      "my-primary": "#2E9CCA",
       dark: "#434A54",
       lightGray: "#AAB2BD",
       light: "#F5F7FA",
@@ -33,5 +36,10 @@ module.exports = {
       "droid-kufi": ["DroidArabicKufiRegular", "sans-serif"],
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
+
+  daisyui: {
+    themes: false,
+    darkTheme: "light",
+  },
 };

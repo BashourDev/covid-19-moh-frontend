@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdCheck, MdError, MdWarning } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../api/api";
@@ -96,7 +96,7 @@ const AllReports = () => {
         <button
           type="button"
           disabled={dateError}
-          className="transition text-base w-32 mt-2 mx-0 lg:mx-5 lg:mt-0 flex justify-center items-center px-3 border-4 rounded-full border-primary text-primary hover:text-white hover:bg-primary disabled:border-lightGray disabled:text-lightGray disabled:hover:text-white disabled:hover:bg-lightGray"
+          className="transition text-base w-32 mt-2 mx-0 lg:mx-5 lg:mt-0 flex justify-center items-center px-3 border-4 rounded-full border-my-primary text-my-primary hover:text-white hover:bg-my-primary disabled:border-lightGray disabled:text-lightGray disabled:hover:text-white disabled:hover:bg-lightGray"
           onClick={() => handleSearch()}
         >
           بحث
@@ -169,6 +169,12 @@ const AllReports = () => {
                         scope="col"
                         className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       >
+                        الحالة
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
+                      >
                         مُضاف من قِبَل
                       </th>
                       <th
@@ -208,6 +214,23 @@ const AllReports = () => {
                         </td>
                         <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {report.reservedVentilators}
+                        </td>
+                        <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
+                          {report.status ? (
+                            <div
+                              className="tooltip"
+                              data-tip="البيانات مطابقة لمرضى المشفى"
+                            >
+                              <MdCheck className="text-success text-lg" />
+                            </div>
+                          ) : (
+                            <div
+                              className="tooltip"
+                              data-tip="البيانات غير مطابقة لمرضى المشفى"
+                            >
+                              <MdWarning className="text-yellow-500 text-lg" />
+                            </div>
+                          )}
                         </td>
                         <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {report.hospital_analyst.name}

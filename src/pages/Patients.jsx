@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { MdAdd, MdDelete, MdEdit, MdSearch } from "react-icons/md";
+import {
+  MdAdd,
+  MdCheck,
+  MdClose,
+  MdDelete,
+  MdEdit,
+  MdError,
+  MdSearch,
+} from "react-icons/md";
 import SearchInput from "../components/SearchInput";
 import api from "../api/api";
 import { toast } from "react-toastify";
@@ -83,7 +91,7 @@ const Patients = () => {
         </div>
         <Link
           to={"add"}
-          className="transition mt-2 lg:mt-0 h-8 lg:h-11 text-xs lg:text-sm flex justify-center items-center px-3 py-1 lg:py-2 border-4 rounded-full border-primary text-primary hover:text-white hover:bg-primary w-44"
+          className="transition mt-2 lg:mt-0 h-8 lg:h-11 text-xs lg:text-sm flex justify-center items-center px-3 py-1 lg:py-2 border-4 rounded-full border-my-primary text-my-primary hover:text-white hover:bg-my-primary w-44"
         >
           <MdAdd />
           إضافة مريض
@@ -104,6 +112,18 @@ const Patients = () => {
                         className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       >
                         الإسم
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
+                      >
+                        بحاجة لعناية مشددة
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
+                      >
+                        توقع الوفاة
                       </th>
                       <th
                         scope="col"
@@ -151,6 +171,38 @@ const Patients = () => {
                           {patient.name}
                         </td>
                         <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
+                          {patient.require_icu === null ? (
+                            "غير معروف"
+                          ) : patient.require_icu === 1 ? (
+                            <div className="tooltip" data-tip="بحاجة">
+                              <MdCheck className="text-lg text-success" />
+                            </div>
+                          ) : (
+                            <div className="tooltip" data-tip="ليس بحاجة">
+                              <MdClose className="text-lg text-error" />
+                            </div>
+                          )}
+                        </td>
+                        <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
+                          {patient.is_gtd === null ? (
+                            "غير معروف"
+                          ) : patient.require_icu === 1 ? (
+                            <div
+                              className="tooltip"
+                              data-tip="حالة المريض حرجة"
+                            >
+                              <MdCheck className="text-lg text-success" />
+                            </div>
+                          ) : (
+                            <div
+                              className="tooltip"
+                              data-tip="حالة المريض ليست حرجة"
+                            >
+                              <MdClose className="text-lg text-error" />
+                            </div>
+                          )}
+                        </td>
+                        <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {patient.address}
                         </td>
                         <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
@@ -185,7 +237,7 @@ const Patients = () => {
               <ReactPaginate
                 className={"flex self-center my-2 text-xs lg:text-sm"}
                 pageClassName={"border-2 px-2 py-1 rounded-sm mx-1"}
-                activeClassName="text-white border-primary bg-primary"
+                activeClassName="text-white border-my-primary bg-my-primary"
                 previousClassName="border-2 px-2 py-1 rounded-sm mx-1"
                 nextClassName="border-2 px-2 py-1 rounded-sm mx-1"
                 breakLabel="..."

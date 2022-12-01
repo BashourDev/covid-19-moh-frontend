@@ -17,6 +17,11 @@ import Statistics from "./pages/Statistics";
 import SetupInterceptors from "./api/SetupInterceptors";
 import api from "./api/api";
 import WindowContext from "./contexts/windowContext";
+import ProvincialAdmins from "./pages/ProvincialAdmins";
+import Provinces from "./pages/Provinces";
+import Home from "./pages/Home";
+import Register from "./pages/Register";
+import Requests from "./pages/Requests";
 
 function NavigateFunctionComponent(props) {
   let navigate = useNavigate();
@@ -42,17 +47,17 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    if (Object.keys(user).length === 0) {
-      navigate("/login");
-      return;
-    }
-    if (user?.role === 0 && location.pathname === "/") {
-      navigate("/dashboard/statistics");
-    } else if (user?.role === 1 && location.pathname === "/") {
-      navigate("/dashboard/monitor-patients");
-    } else if (user?.role === 2 && location.pathname === "/") {
-      navigate("/dashboard/monitor-hospital");
-    }
+    // if (Object.keys(user).length === 0) {
+    //   navigate("/login");
+    //   return;
+    // }
+    // if ((user?.role === 0 || user?.role === 3) && location.pathname === "/") {
+    //   navigate("/dashboard/statistics");
+    // } else if (user?.role === 1 && location.pathname === "/") {
+    //   navigate("/dashboard/monitor-patients");
+    // } else if (user?.role === 2 && location.pathname === "/") {
+    //   navigate("/dashboard/monitor-hospital");
+    // }
   }, [user]);
 
   useEffect(() => {
@@ -70,11 +75,19 @@ function App() {
   }, []);
 
   return (
-    <div className="overflow-y-hidden font-droid-kufi">
+    <div
+      dir="rtl"
+      className="overflow-y-hidden font-droid-kufi bg-light min-h-screen"
+    >
       <NavigateFunctionComponent />
       <WindowContext.Provider value={{ width: windowWidth }}>
         <UserContext.Provider value={{ user: user, setUser: setUser }}>
-          <ToastContainer className={"z-50"} rtl autoClose={5000} />
+          <ToastContainer
+            className={"z-50"}
+            rtl
+            autoClose={4000}
+            position={"top-center"}
+          />
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />}>
@@ -86,6 +99,9 @@ function App() {
                 <Route path="edit/:hid" element={<HospitalForm />} />
               </Route>
               <Route path="reports" element={<AllReports />} />
+              <Route path="states" element={<Provinces />} />
+              <Route path="state-admins" element={<ProvincialAdmins />} />
+              <Route path="requests" element={<Requests />} />
               <Route path="monitor-hospital" element={<HospitalReports />} />
               <Route
                 path="monitor-hospital/add"
@@ -98,6 +114,9 @@ function App() {
                 element={<PatientForm />}
               />
             </Route>
+
+            <Route path="/register" element={<Register />} />
+            <Route path="/" element={<Home />} />
           </Routes>
         </UserContext.Provider>
       </WindowContext.Provider>

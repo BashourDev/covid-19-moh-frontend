@@ -30,12 +30,12 @@ const AppInput = ({
     <div className={`flex flex-col ${containerClassName}`}>
       <label
         htmlFor={id}
-        className="text-dark text-xs lg:text-sm focus:text-primary mt-5 mb-1 mx-1 focus-within:text-primary"
+        className="text-dark text-xs lg:text-sm focus:text-my-primary mt-5 mb-1 mx-1 focus-within:text-my-primary"
       >
         {label}
       </label>
       <div
-        className={`w-11/12 h-11 border-[1px] border-lightGray transition duration-150 rounded-lg flex items-center text-dark focus-within:border-primary ${className} ${
+        className={`w-11/12 h-11 border-[1px] border-lightGray transition duration-150 rounded-lg flex items-center text-dark focus-within:border-my-primary ${className} ${
           touched[id] && errors[id] && "border-danger"
         }`}
       >

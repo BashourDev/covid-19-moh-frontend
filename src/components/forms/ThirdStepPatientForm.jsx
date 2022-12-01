@@ -84,6 +84,11 @@ const ThirdStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             </div>
           </div>
           <AppCheckBox
+            id={"requiredICU"}
+            name={"requiredICU"}
+            text={"هل إحتاج إلى عناية مركزة"}
+          />
+          <AppCheckBox
             id={"requiredVentilation"}
             name={"requiredVentilation"}
             text={"هل إحتاج إلى دعم تنفسي"}

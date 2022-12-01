@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { ProSidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import {
   MdTrendingUp,
   MdOutlineCoronavirus,
   MdSummarize,
+  MdPerson,
+  MdRequestPage,
+  MdFlag,
 } from "react-icons/md";
 import { RiHospitalFill } from "react-icons/ri";
 import { BsChevronCompactLeft } from "react-icons/bs";
@@ -17,9 +20,7 @@ import { removeToken } from "../api/token";
 import UserContext from "../contexts/userContext";
 import api from "../api/api";
 import Loading from "../components/Loading";
-import AppModal from "../components/AppModal";
 import MyAccount from "../components/MyAccount";
-import WindowContext from "../contexts/windowContext";
 
 const Dashboard = () => {
   const [sideBarCollapsed, setSideBarCollapsed] = useState(false);
@@ -27,8 +28,8 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const userContext = useContext(UserContext);
-  const windowContext = useContext(WindowContext);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const logout = async () => {
     setLoading(true);
@@ -37,6 +38,7 @@ const Dashboard = () => {
     removeToken();
     userContext.setUser({});
     setLoading(false);
+    navigate("/");
   };
 
   const checkActiveItem = (items) => {
@@ -60,6 +62,12 @@ const Dashboard = () => {
       setActiveItem("mh");
     } else if (location.pathname.match("/dashboard/monitor-patients")) {
       setActiveItem("mp");
+    } else if (location.pathname.match("/dashboard/state-admins")) {
+      setActiveItem("pa");
+    } else if (location.pathname.match("/dashboard/states")) {
+      setActiveItem("pro");
+    } else if (location.pathname.match("/dashboard/requests")) {
+      setActiveItem("req");
     }
   }, [location]);
 
@@ -105,49 +113,96 @@ const Dashboard = () => {
         <ProSidebar
           rtl
           collapsed={sideBarCollapsed}
-          collapsedWidth={windowContext.width > 710 ? 80 : 70}
+          className="hidden md:block"
         >
           <Menu iconShape="circle">
             <MenuItem
               icon={<AiOutlineMenu />}
               onClick={() => setSideBarCollapsed(!sideBarCollapsed)}
             ></MenuItem>
-            {userContext.user.role === 0 && (
+            {(userContext.user.role === 0 || userContext.user.role === 3) && (
               <>
                 <MenuItem
-                  className={`${checkActiveItem("stat") ? "bg-slate-800" : ""}`}
+                  className={`${
+                    checkActiveItem("stat") ? "bg-slate-800 rounded-r-full" : ""
+                  }`}
                   icon={<FaRegChartBar />}
                 >
                   <NavLink to={"/dashboard/statistics"}>إحصائيات</NavLink>
                 </MenuItem>
-                <SubMenu title="المشافي" icon={<RiHospitalFill />}>
+                <SubMenu
+                  title="المشافي"
+                  icon={<RiHospitalFill />}
+                  className={"relative"}
+                >
                   <MenuItem
                     className={`${
-                      checkActiveItem("puh") ? "bg-slate-800" : ""
+                      checkActiveItem("puh")
+                        ? "bg-slate-800 rounded-r-full"
+                        : ""
                     }`}
                   >
                     <NavLink to={"/dashboard/hospitals/public"}>عامة</NavLink>
                   </MenuItem>
                   <MenuItem
                     className={`${
-                      checkActiveItem("prh") ? "bg-slate-800" : ""
+                      checkActiveItem("prh")
+                        ? "bg-slate-800 rounded-r-full"
+                        : ""
                     }`}
                   >
                     <NavLink to={"/dashboard/hospitals/private"}>خاصة</NavLink>
                   </MenuItem>
                 </SubMenu>
                 <MenuItem
-                  className={`${checkActiveItem("rep") ? "bg-slate-800" : ""}`}
+                  className={`${
+                    checkActiveItem("rep") ? "bg-slate-800 rounded-r-full" : ""
+                  }`}
                   icon={<MdSummarize />}
                 >
                   <NavLink to={"/dashboard/reports"}>التقارير</NavLink>
+                </MenuItem>
+                <MenuItem
+                  className={`${
+                    checkActiveItem("req") ? "bg-slate-800 rounded-r-full" : ""
+                  }`}
+                  icon={<MdRequestPage />}
+                >
+                  <NavLink to={"/dashboard/requests"}>طلبات الإنضمام</NavLink>
+                </MenuItem>
+              </>
+            )}
+
+            {userContext.user.role === 0 && (
+              <>
+                <MenuItem
+                  className={`${
+                    checkActiveItem("pro") ? "bg-slate-800 rounded-r-full" : ""
+                  }`}
+                  icon={<MdFlag />}
+                >
+                  <NavLink to={"/dashboard/states"}>
+                    المحافظات / الولايات
+                  </NavLink>
+                </MenuItem>
+                <MenuItem
+                  className={`${
+                    checkActiveItem("pa") ? "bg-slate-800 rounded-r-full" : ""
+                  }`}
+                  icon={<MdPerson />}
+                >
+                  <NavLink to={"/dashboard/state-admins"}>
+                    مديريات الصحة
+                  </NavLink>
                 </MenuItem>
               </>
             )}
 
             {userContext.user.role === 2 && (
               <MenuItem
-                className={`${checkActiveItem("mh") ? "bg-slate-800" : ""}`}
+                className={`${
+                  checkActiveItem("mh") ? "bg-slate-800 rounded-r-full" : ""
+                }`}
                 icon={<MdTrendingUp />}
               >
                 <NavLink to={"/dashboard/monitor-hospital"}>
@@ -157,7 +212,9 @@ const Dashboard = () => {
             )}
             {userContext.user.role === 1 && (
               <MenuItem
-                className={`${checkActiveItem("mp") ? "bg-slate-800" : ""}`}
+                className={`${
+                  checkActiveItem("mp") ? "bg-slate-800 rounded-r-full" : ""
+                }`}
                 icon={<FaUserInjured />}
               >
                 <NavLink to={"/dashboard/monitor-patients"}>
@@ -167,8 +224,133 @@ const Dashboard = () => {
             )}
           </Menu>
         </ProSidebar>
-        <Outlet />
+        <div className="overflow-y-scroll w-full h-full min-h-screen flex pb-20">
+          <Outlet />
+        </div>
       </div>
+
+      {/* Bottom Navigation */}
+      <div className="fixed bottom-0 z-20 md:hidden flex justify-around items-center w-full min-w-full h-16 ring-inset ring-2 ring-lightGray/50 shadow-md bg-white overflow-x-scroll">
+        {(userContext.user.role === 0 || userContext.user.role === 3) && (
+          <>
+            <div
+              className={`h-full min-w-[70px] w-full ${
+                userContext.user.role === 0 ? "mr-28" : ""
+              }`}
+            >
+              <NavLink
+                className={({ isActive }) =>
+                  `flex flex-col justify-center items-center h-full transition ${
+                    isActive
+                      ? "text-my-primary border-t-2 border-t-my-primary"
+                      : "text-dark"
+                  }`
+                }
+                to={"/dashboard/statistics"}
+              >
+                <FaRegChartBar className="text-base" />
+                <span className="text-[10px]">إحصائيات</span>
+              </NavLink>
+            </div>
+            <div className="h-full min-w-[70px] w-full">
+              <NavLink
+                className={({ isActive }) =>
+                  `flex flex-col justify-center items-center h-full transition ${
+                    isActive
+                      ? "text-my-primary border-t-2 border-t-my-primary"
+                      : "text-dark"
+                  }`
+                }
+                to={"/dashboard/hospitals/public"}
+              >
+                <RiHospitalFill className="text-base" />
+                <span className="text-[10px]">مشافي عامة</span>
+              </NavLink>
+            </div>
+            <div className="h-full min-w-[70px] w-full">
+              <NavLink
+                className={({ isActive }) =>
+                  `flex flex-col justify-center items-center h-full transition ${
+                    isActive
+                      ? "text-my-primary border-t-2 border-t-my-primary"
+                      : "text-dark"
+                  }`
+                }
+                to={"/dashboard/hospitals/private"}
+              >
+                <RiHospitalFill className="text-base" />
+                <span className="text-[10px]">مشافي خاصة</span>
+              </NavLink>
+            </div>
+            <div className="h-full min-w-[70px] w-full">
+              <NavLink
+                className={({ isActive }) =>
+                  `flex flex-col justify-center items-center h-full transition ${
+                    isActive
+                      ? "text-my-primary border-t-2 border-t-my-primary"
+                      : "text-dark"
+                  }`
+                }
+                to={"/dashboard/reports"}
+              >
+                <MdSummarize className="text-base" />
+                <span className="text-[10px]">التقارير</span>
+              </NavLink>
+            </div>
+            <div className="h-full min-w-[70px] w-full">
+              <NavLink
+                className={({ isActive }) =>
+                  `flex flex-col justify-center items-center h-full transition ${
+                    isActive
+                      ? "text-my-primary border-t-2 border-t-my-primary"
+                      : "text-dark"
+                  }`
+                }
+                to={"/dashboard/requests"}
+              >
+                <MdRequestPage className="text-base" />
+                <span className="text-[10px]">طلبات الإنضمام</span>
+              </NavLink>
+            </div>
+          </>
+        )}
+
+        {userContext.user.role === 0 && (
+          <>
+            <div className="h-full min-w-[70px] w-full">
+              <NavLink
+                className={({ isActive }) =>
+                  `flex flex-col justify-center items-center h-full transition ${
+                    isActive
+                      ? "text-my-primary border-t-2 border-t-my-primary"
+                      : "text-dark"
+                  }`
+                }
+                to={"/dashboard/states"}
+              >
+                <MdFlag className="text-base" />
+                <span className="text-[10px]">المحافظات</span>
+              </NavLink>
+            </div>
+            <div className="h-full min-w-[70px] w-full">
+              <NavLink
+                className={({ isActive }) =>
+                  `flex flex-col justify-center items-center h-full transition ${
+                    isActive
+                      ? "text-my-primary border-t-2 border-t-my-primary"
+                      : "text-dark"
+                  }`
+                }
+                to={"/dashboard/state-admins"}
+              >
+                <MdPerson className="text-base" />
+                <span className="text-[10px]">مديريات الصحة</span>
+              </NavLink>
+            </div>
+          </>
+        )}
+      </div>
+
       <MyAccount isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );

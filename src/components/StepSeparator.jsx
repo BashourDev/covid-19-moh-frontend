@@ -4,7 +4,7 @@ const StepSeparator = ({ isPassed }) => {
   return (
     <div
       className={`w-full h-[1px] lg:h-[2px] flex ${
-        isPassed ? "bg-primary text-primary" : "bg-dark text-dark"
+        isPassed ? "bg-my-primary text-my-primary" : "bg-dark text-dark"
       }`}
     ></div>
   );

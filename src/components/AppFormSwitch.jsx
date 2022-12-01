@@ -12,7 +12,7 @@ export default function AppFormSwitch({ name, text }) {
         id={name}
         checked={values[name]}
         onChange={(value) => setFieldValue(name, value)}
-        className={`${values[name] ? "bg-primary" : "bg-lightGray"}
+        className={`${values[name] ? "bg-my-primary" : "bg-lightGray"}
           relative inline-flex flex-shrink-0 h-[28px] w-[56px] border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
       >
         <span className="sr-only">Use setting</span>
@@ -24,7 +24,7 @@ export default function AppFormSwitch({ name, text }) {
       </Switch>
       <span
         className={`${
-          values[name] ? "text-primary" : "text-dark"
+          values[name] ? "text-my-primary" : "text-dark"
         } mx-2 pt-[2px]`}
       >
         {text}

@@ -303,7 +303,7 @@ const PatientsBarChart = () => {
         <button
           type="button"
           disabled={dateError || isLoading}
-          className="transition text-base w-32 mt-2 mx-0 lg:mx-5 lg:mt-0 flex justify-center items-center px-3 border-4 rounded-full border-primary text-primary hover:text-white hover:bg-primary disabled:border-lightGray disabled:text-lightGray disabled:hover:text-white disabled:hover:bg-lightGray"
+          className="transition text-base w-32 mt-2 mx-0 lg:mx-5 lg:mt-0 flex justify-center items-center px-3 border-4 rounded-full border-my-primary text-my-primary hover:text-white hover:bg-my-primary disabled:border-lightGray disabled:text-lightGray disabled:hover:text-white disabled:hover:bg-lightGray"
           onClick={() => handleSearch()}
         >
           {isLoading ? <Loading className="w-8 h-8" /> : "بحث"}
@@ -345,7 +345,7 @@ const PatientsBarChart = () => {
           />
         </div>
         {/* </div> */}
-        <div className="relative col-span-5 lg:col-span-1 flex flex-col mx-5 items-center bg-white my-5 ring-1 ring-light rounded-lg shadow-md shadow-lightGray">
+        <div className="relative col-span-5 lg:col-span-1 flex flex-col mx-5 h-fit items-center bg-white my-5 ring-1 ring-light rounded-lg shadow-md shadow-lightGray">
           <AppSelectDoughnut
             handleChange={handleDoughnutSelectChange}
             options={[

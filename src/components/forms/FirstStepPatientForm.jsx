@@ -73,13 +73,13 @@ const FirstStepPatientForm = ({
               <AppFormRadioButton
                 id={"male"}
                 name={"gender"}
-                value={"0"}
+                value={"1"}
                 text={"ذكر"}
               />
               <AppFormRadioButton
                 id={"female"}
                 name={"gender"}
-                value={"1"}
+                value={"0"}
                 text={"انثى"}
               />
             </div>
@@ -136,12 +136,14 @@ const FirstStepPatientForm = ({
             id={"height"}
             placeholder={"الطول"}
             label={"الطول:"}
+            type={"number"}
             containerClassName="grow"
           />
           <AppInput
             id={"weight"}
             placeholder={"الوزن"}
             label={"الوزن:"}
+            type={"number"}
             containerClassName="grow"
           />
         </div>

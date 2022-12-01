@@ -150,7 +150,8 @@ const MyAccount = ({ isOpen, setIsOpen }) => {
           <div className="flex">
             <label className="ml-2">الصلاحية:</label>
             <span>
-              {(userContext.user.role === 0 && "مدير") ||
+              {((userContext.user.role === 0 || userContext.user.role === 3) &&
+                "مدير") ||
                 (userContext.user.role === 1 && "مسؤول مرضى المشفى") ||
                 (userContext.user.role === 2 && "مسؤول تقارير المشفى")}
             </span>

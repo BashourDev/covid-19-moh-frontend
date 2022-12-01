@@ -116,7 +116,7 @@ const Hospitals = () => {
         </div>
         <Link
           to={"/dashboard/hospitals/add"}
-          className="transition mt-2 lg:mt-0 h-8 lg:h-11 text-xs lg:text-sm flex justify-center items-center px-3 py-1 lg:py-2 border-4 rounded-full border-primary text-primary hover:text-white hover:bg-primary w-36 lg:w-44"
+          className="transition mt-2 lg:mt-0 h-8 lg:h-11 text-xs lg:text-sm flex justify-center items-center px-3 py-1 lg:py-2 border-4 rounded-full border-my-primary text-my-primary hover:text-white hover:bg-my-primary w-36 lg:w-44"
         >
           <MdAdd />
           إضافة مشفى
@@ -125,7 +125,7 @@ const Hospitals = () => {
       <div className="flex flex-col px-3 lg:px-16">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full">
-            <div className="overflow-y-scroll max-h-[67vh] 2xl:max-h-[70vh]">
+            <div className="overflow-y-scroll max-h-[67vh] 2xl:max-h-[80vh]">
               {loading ? (
                 <Loading />
               ) : (
@@ -187,22 +187,16 @@ const Hospitals = () => {
                           {hospital.location}
                         </td>
                         <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
-                          {hospital.emergencyReservedBeds
-                            ? parseInt(hospital.emergencyBeds) -
-                              parseInt(hospital.emergencyReservedBeds)
-                            : hospital.emergencyBeds}
+                          {parseInt(hospital.emergencyBeds) -
+                            parseInt(hospital.reserved_emergency_beds_count)}
                         </td>
                         <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
-                          {hospital.intensiveCareReservedBeds
-                            ? parseInt(hospital.intensiveCareBeds) -
-                              parseInt(hospital.intensiveCareReservedBeds)
-                            : hospital.intensiveCareBeds}
+                          {parseInt(hospital.intensiveCareBeds) -
+                            parseInt(hospital.reserved_i_c_u_beds_count)}
                         </td>
                         <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
-                          {hospital.reservedVentilators
-                            ? parseInt(hospital.ventilators) -
-                              parseInt(hospital.reservedVentilators)
-                            : hospital.ventilators}
+                          {parseInt(hospital.ventilators) -
+                            parseInt(hospital.reserved_ventilators_count)}
                         </td>
                         <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {moment(hospital.updated_at).calendar()}
@@ -210,7 +204,7 @@ const Hospitals = () => {
                         <td className="text-xs lg:text-sm text-gray-900 font-light pr-2 pl-16 lg:px-6 py-3 lg:py-4 whitespace-nowrap flex items-center">
                           <MdPerson
                             onClick={() => showInfo(hospital.id)}
-                            className="text-primary text-lg lg:text-xl cursor-pointer mx-2 lg:mx-3"
+                            className="text-my-primary text-lg lg:text-xl cursor-pointer mx-2 lg:mx-3"
                           />
                           <Link
                             to={`/dashboard/hospitals/edit/${hospital.id}`}
@@ -231,7 +225,7 @@ const Hospitals = () => {
               <ReactPaginate
                 className={"flex self-center my-2 text-xs lg:text-sm"}
                 pageClassName={"border-2 px-2 py-1 rounded-sm mx-1"}
-                activeClassName="text-white border-primary bg-primary"
+                activeClassName="text-white border-my-primary bg-my-primary"
                 previousClassName="border-2 px-2 py-1 rounded-sm mx-1"
                 nextClassName="border-2 px-2 py-1 rounded-sm mx-1"
                 breakLabel="..."

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { MdAdd, MdDelete } from "react-icons/md";
+import { MdAdd, MdCheck, MdDelete, MdError, MdWarning } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../api/api";
@@ -52,7 +52,7 @@ const HospitalReports = () => {
         </span>
         <Link
           to={"/dashboard/monitor-hospital/add"}
-          className="transition h-8 lg:h-11 text-xs lg:text-sm flex justify-center items-center ml-5 lg:ml-0 px-3 py-1 lg:py-2 border-4 rounded-full border-primary text-primary hover:text-white hover:bg-primary w-32 lg:w-44"
+          className="transition h-8 lg:h-11 text-xs lg:text-sm flex justify-center items-center ml-5 lg:ml-0 px-3 py-1 lg:py-2 border-4 rounded-full border-my-primary text-my-primary hover:text-white hover:bg-my-primary w-32 lg:w-44"
         >
           <MdAdd />
           إضافة تقرير
@@ -108,6 +108,12 @@ const HospitalReports = () => {
                         scope="col"
                         className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
                       >
+                        الحالة
+                      </th>
+                      <th
+                        scope="col"
+                        className="text-xs lg:text-sm font-semibold text-gray-900 px-2 lg:px-6 py-3 lg:py-4 text-right"
+                      >
                         مضُاف من قِبَل
                       </th>
                       <th
@@ -147,8 +153,26 @@ const HospitalReports = () => {
                           {report.reservedVentilators}
                         </td>
                         <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
+                          {report.status ? (
+                            <div
+                              className="tooltip"
+                              data-tip="البيانات مطابقة لمرضى المشفى"
+                            >
+                              <MdCheck className="text-success text-lg" />
+                            </div>
+                          ) : (
+                            <div
+                              className="tooltip"
+                              data-tip="البيانات غير مطابقة لمرضى المشفى"
+                            >
+                              <MdWarning className="text-yellow-500 text-lg" />
+                            </div>
+                          )}
+                        </td>
+                        <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {report.hospital_analyst.name}
                         </td>
+
                         <td className="text-xs lg:text-sm text-gray-900 font-light px-2 lg:px-6 py-3 lg:py-4 whitespace-nowrap">
                           {moment(report.updated_at).calendar()}
                         </td>

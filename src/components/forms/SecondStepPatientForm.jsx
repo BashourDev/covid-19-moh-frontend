@@ -60,6 +60,7 @@ const SecondStepPatientForm = ({ initialValues, setPatient, setStep }) => {
             id={"temperature"}
             placeholder={"درجة الحرارة"}
             label={"درجة الحرارة:"}
+            type={"number"}
             containerClassName="grow"
           />
           <AppInput

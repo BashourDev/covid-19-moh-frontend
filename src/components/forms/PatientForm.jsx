@@ -106,6 +106,7 @@ const PatientForm = () => {
     ctReport: "",
     tests: "",
     pcrResult: false,
+    requiredICU: false,
     requiredVentilation: false,
     ventilationDuration: "",
     clinicalImprovement: false,
